@@ -1,6 +1,7 @@
 DOTFILES := $(shell find $(SOURCEDIR) -type f -name '.*')
 ERLANG_VERSION = 22.2.7
 ELIXIR_VERSION = v1.10.1
+PHOENIX_VERSION = 1.4.14
 
 all: install
 
@@ -10,7 +11,8 @@ deps:
 			        automake autoconf libncurses5-dev	\
 			        libssl-dev flex xsltproc		\
 			        libwxgtk3.0-gtk3-dev			\
-			        libwxgtk3.0-gtk3-0v5 tmux
+			        libwxgtk3.0-gtk3-0v5 tmux		\
+			        inotify-tools
 
 .PHONY: ohmyzsh
 ohmyzsh:
@@ -39,8 +41,13 @@ elixir:
 	asdf install elixir "$(ELIXIR_VERSION)"
 	asdf global elixir "$(ELIXIR_VERSION)"
 
+.PHONY: phx
+phx:
+	mix local.hex --force
+	mix archive.install --force hex phx_new 1.4.14
+
 .PHONY: install
-install: ohmyzsh link asdf erlang elixir
+install: ohmyzsh link asdf erlang elixir phx
 
 
 
