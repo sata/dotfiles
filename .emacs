@@ -13,27 +13,29 @@
 (package-manifest 'ag
                   'expand-region
                   'magit
-                  ;; 'melpa
-                  ;; 'flycheck-golang
 		  'cyberpunk-theme
 		  'flycheck
-                  'paredit
-                  'ruby-mode 
-		  'ssh
+                  'company
                   'nyan-mode
-                  'python-mode
+                  'ssh
+                  'paredit
                   'highlight-symbol
                   'markdown-mode
+                  'projectile
+                  'python-mode
+                  'ruby-mode
                   'alchemist
                   'elixir-mode
-                  'projectile
                   'cc-mode
-                  'go-projectile
-                  'company
+                  ;; go
                   'go-mode
+                  'go-projectile
                   'company-go
                   'cl-lib
+                  'web-mode
 		  'package+
+                  ;; 'melpa
+                  ;; 'flycheck-golang
                   )
 
 (require 'cl-lib)
@@ -274,6 +276,10 @@
 
 (projectile-global-mode 1)
 (go-projectile-tools-add-path)
+
+;;elixir
+(setq alchemist-hooks-compile-on-save t)
+
 ;; (ac-config-default)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -282,7 +288,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (ag alchemist cc-mode cl-lib company company-go cyberpunk-theme elixir-mode expand-region flycheck go-mode go-projectile highlight-symbol magit markdown-mode nyan-mode package+ paredit projectile python-mode ruby-mode ssh))))
+    (ag alchemist cc-mode cl-lib company company-go cyberpunk-theme elixir-mode expand-region flycheck go-mode go-projectile highlight-symbol magit markdown-mode nyan-mode package+ paredit projectile python-mode ruby-mode ssh web-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
