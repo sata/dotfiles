@@ -1,11 +1,12 @@
-(package-initialize)
+;; (unless package--initialized (package-initialize)) ;; emacs27 does this before evaluating user config file
 
 (add-to-list 'package-archives '("elpa" . "http://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 
-(unless package-archive-contents
-  (package-refresh-contents))
+;; don't think I need this for emacs27
+;; (unless package-archive-contents
+;;   (package-refresh-contents))
 
 (unless (package-installed-p 'package+)
   (package-install 'package+))
@@ -13,6 +14,7 @@
 (package-manifest 'ag
                   'expand-region
                   'magit
+                  'cl-lib
 		  'cyberpunk-theme
 		  'flycheck
                   'company
@@ -31,16 +33,18 @@
                   'go-mode
                   'go-projectile
                   'company-go
-                  'cl-lib
+                  'gotest
                   'web-mode
 		  'package+
-                  ;; 'melpa
-                  ;; 'flycheck-golang
+                  ;; lsp
+                  'lsp-mode
+		  'lsp-ui
+                  'company-lsp
+                  'lsp-treemacs
+                  'helm-lsp
+                  'use-package
+                  'yasnippet
                   )
-
-(require 'cl-lib)
-
-(setq paths-to-load '("~/go/src/github.com/dougm/goflymake"))
 
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
@@ -48,8 +52,6 @@
 (setq ido-create-new-buffer 'always)
 (setq ido-file-extensions-order '(".emacs" ".org" ".md"))
 (ido-mode 1)
-
-(cl-map nil #'(lambda (e) (add-to-list 'load-path e)) paths-to-load)
 
 (require 'package+)
 (require 'nyan-mode)
@@ -60,12 +62,13 @@
 
 (require 'projectile)
 (require 'cc-mode)
-(require 'go-flycheck)
+;; (require 'go-flycheck)
 (require 'go-projectile)
 (require 'company)
 (require 'go-mode)
 (require 'company-go)
 (require 'uniquify)
+(require 'lsp-mode)
 
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
@@ -228,56 +231,62 @@
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
-;; (custom-set-variables
-;;  ;; custom-set-variables was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(package-selected-packages
-;;    '(company go-projectile company-go go-eldoc flycheck-golangci-lint flymake flymake-google-cpplint flymake-go go-autocomplete auto-complete exec-path-from-shell go-mode fireplace edts dockerfile-mode yaml-mode json-mode projectile alchemist plantuml-mode web-mode elixir-mode floobits ##)))
-;; (custom-set-faces
-;;  ;; custom-set-faces was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  )
+;; plantuml
+(add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+(setq plantuml-output-type `"ascii")
 
-;; (global-set-key (kbd "<f3>") 'erlang-man-function)
+;; (eval-after-load 'flycheck
+;;   '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
+
+
+;; golang --------------------------------------------------------------
+
+(use-package lsp-mode
+  :ensure t
+  :commands (lsp lsp-deferred)
+  :hook (go-mode . lsp-deferred))
+
+;; Set up before-save hooks to format buffer and add/delete imports.
+;; Make sure you don't have other gofmt/goimports hooks enabled.
+(defun lsp-go-install-save-hooks ()
+  (add-hook 'before-save-hook #'lsp-format-buffer t t)
+  (add-hook 'before-save-hook #'lsp-organize-imports t t))
+(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+
+;; Optional - provides fancier overlays.
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode)
+
+;; Company mode is a standard completion package that works well with lsp-mode.
+(use-package company
+  :ensure t
+  :config
+  ;; Optionally enable completion-as-you-type behavior.
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 1))
+
+;; company-lsp integrates company mode completion with lsp-mode.
+;; completion-at-point also works out of the box but doesn't support snippets.
+(use-package company-lsp
+  :ensure t
+  :commands company-lsp)
+
+;; Optional - provides snippet support.
+(use-package yasnippet
+  :ensure t
+  :commands yas-minor-mode
+  :hook (go-mode . yas-minor-mode))
+
+;; ---------------------------------------------------------------------
+
+(projectile-mode 1)
+(go-projectile-tools-add-path)
 
 ;; elixir
 (add-to-list 'auto-mode-alist '("\\.eex$" . web-mode))
 (add-to-list 'elixir-mode-hook 'alchemist-mode 'company)
 
-;; plantuml
-(add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
-(setq plantuml-output-type `"ascii")
-
-(add-hook 'after-init-hook #'global-flycheck-mode)
-
-;; (eval-after-load 'flycheck
-;;   '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
-
-(defun my-go-mode-hook ()
-  (go-eldoc-setup)
-  (setq gofmt-command "goimports")
-  (add-hook 'before-save-hook 'gofmt-before-save)
-  ;; Customize compile command to run go build
-  (if (not (string-match "go" compile-command))
-      (set (make-local-variable 'compile-command)
-           "go build -v && go test -race -v && go vet"))
-
-  (local-set-key (kbd "M-.") 'godef-jump)
-  )
-
-(add-hook 'go-mode-hook 'my-go-mode-hook)
-(add-hook 'go-mode-hook (lambda ()
-                          (company-mode)
-                          (set (make-local-variable 'company-backends) '(company-go))))
-
-(projectile-global-mode 1)
-(go-projectile-tools-add-path)
-
-;;elixir
 (setq alchemist-hooks-compile-on-save t)
 
 ;; (ac-config-default)
@@ -287,8 +296,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   (quote
-    (ag alchemist cc-mode cl-lib company company-go cyberpunk-theme elixir-mode expand-region flycheck go-mode go-projectile highlight-symbol magit markdown-mode nyan-mode package+ paredit projectile python-mode ruby-mode ssh web-mode))))
+   '(ag alchemist cc-mode cl-lib company company-go company-lsp cyberpunk-theme elixir-mode expand-region flycheck go-mode go-projectile gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui magit markdown-mode nyan-mode package+ paredit projectile python-mode ruby-mode ssh use-package web-mode yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
