@@ -18,6 +18,13 @@ deps:
 ohmyzsh:
 	@sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
+.PHONY: emacs-early-init
+emacs-early-init:
+	@-mkdir ~/.emacs.d
+	@echo ";; Let package+ deal with package initialization \
+rather than emacs itself" >> ~/.emacs.d/early-init.el
+	@echo "(setq package-enable-at-startup nil)" >> ~/.emacs.d/early-init.el
+
 .PHONY: link
 link:
 	@for dotfile in $(DOTFILES); do \
