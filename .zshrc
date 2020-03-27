@@ -54,8 +54,9 @@ plugins=(git ssh-agent)
 # User configuration
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
-
 export PATH="$PATH:/usr/local/bin:$HOME/.local/bin"
+export PATH="$PATH:/usr/local/go/bin:$HOME/go/bin"
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -101,4 +102,4 @@ alias l='ls -lh'
 
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
-
+export GO111MODULE=on
