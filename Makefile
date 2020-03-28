@@ -12,7 +12,7 @@ deps:
 			        libssl-dev flex xsltproc		\
 			        libwxgtk3.0-gtk3-dev			\
 			        libwxgtk3.0-gtk3-0v5 tmux		\
-			        inotify-tools
+			        inotify-tools tig
 
 .PHONY: ohmyzsh
 ohmyzsh:
