@@ -12,7 +12,7 @@ deps:
 			        libssl-dev flex xsltproc		\
 			        libwxgtk3.0-gtk3-dev			\
 			        libwxgtk3.0-gtk3-0v5 tmux		\
-			        inotify-tools tig
+			        inotify-tools tig okular
 
 .PHONY: ohmyzsh
 ohmyzsh:
@@ -57,6 +57,8 @@ phx:
 gotools:
 	-@curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b `go env GOPATH`/bin v1.24.0
 	@go get golang.org/x/tools/gopls@latest
+	@go get -u github.com/haya14busa/gopkgs/cmd/gopkgs
+	@go get github.com/fatih/gomodifytags
 
 .PHONY: install
 install: ohmyzsh link asdf erlang elixir phx gotools

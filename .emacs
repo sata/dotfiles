@@ -29,11 +29,15 @@
                   'alchemist
                   'elixir-mode
                   'cc-mode
+
                   ;; go
                   'go-mode
                   'go-projectile
                   'company-go
                   'gotest
+                  'go-tag
+                  'flycheck-golangci-lint
+
                   'web-mode
 		  'package+
                   ;; lsp
@@ -44,7 +48,6 @@
                   'helm-lsp
                   'use-package
                   'yasnippet
-                  'flycheck-golangci-lint
                   )
 
 (setq ido-enable-flex-matching t)
@@ -82,7 +85,6 @@
 (defun better-defaults ()
   (progn
     (tool-bar-mode -1) (scroll-bar-mode -1)
-    (setq-default indent-tabs-mode nil)
 ;;    (defalias 'yes-or-no-p 'y-or-n-p)
     (setq x-select-enable-clipboard t)
 ;;    (setq-default save-place t) (require 'saveplace)
@@ -102,7 +104,10 @@
 ;; (balance-windows)
 (global-hi-lock-mode 1)
 
-(setq indent-tabs-mode nil)
+(setq-default
+ tab-width 2
+ standard-indent 2
+ indent-tabs-mode nil)
 
 (setq c-basic-offset 2)
 
@@ -115,9 +120,7 @@
 ;; Python Hook 4 space tab
 (add-hook 'python-mode-hook
       (lambda ()
-        (setq indent-tabs-mode nil)
-        (setq tab-width 4)
-        (setq python-indent 4)))
+        (setq python-indent 2)))
 
 ;;; cperl-mode is preferred to perl-mode
 ;;; "Brevity is the soul of wit" <foo at acm.org>
@@ -300,7 +303,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(ag alchemist cc-mode cl-lib company company-go company-lsp cyberpunk-theme elixir-mode expand-region flycheck flycheck-golangci-lint go-mode go-projectile gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui magit markdown-mode nyan-mode package+ paredit projectile python-mode ruby-mode ssh use-package web-mode yasnippet)))
+   '(ag alchemist cc-mode cl-lib company company-go company-lsp cyberpunk-theme elixir-mode expand-region flycheck flycheck-golangci-lint go-mode go-projectile go-tag gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui magit markdown-mode nyan-mode package+ paredit projectile python-mode ruby-mode ssh use-package web-mode yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
