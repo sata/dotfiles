@@ -20,7 +20,7 @@ ohmyzsh:
 
 .PHONY: emacs-early-init
 emacs-early-init:
-	@-mkdir ~/.emacs.d
+	-@mkdir ~/.emacs.d
 	@echo ";; Let package+ deal with package initialization \
 rather than emacs itself" >> ~/.emacs.d/early-init.el
 	@echo "(setq package-enable-at-startup nil)" >> ~/.emacs.d/early-init.el
@@ -53,8 +53,13 @@ phx:
 	mix local.hex --force
 	mix archive.install --force hex phx_new 1.4.14
 
+.PHONY: gotools
+gotools:
+	-@curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b `go env GOPATH`/bin v1.24.0
+	@go get golang.org/x/tools/gopls@latest
+
 .PHONY: install
-install: ohmyzsh link asdf erlang elixir phx
+install: ohmyzsh link asdf erlang elixir phx gotools
 
 
 

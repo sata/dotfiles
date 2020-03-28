@@ -102,4 +102,6 @@ alias l='ls -lh'
 
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
+
 export GO111MODULE=on
+export GOPATH="$HOME/go"
