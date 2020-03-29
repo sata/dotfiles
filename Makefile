@@ -59,6 +59,7 @@ gotools:
 	@go get golang.org/x/tools/gopls@latest
 	@go get -u github.com/haya14busa/gopkgs/cmd/gopkgs
 	@go get github.com/fatih/gomodifytags
+	@go get golang.org/x/tools/cmd/guru
 
 .PHONY: install
 install: ohmyzsh link asdf erlang elixir phx gotools
