@@ -91,6 +91,10 @@ setopt NO_HUP
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# history
+HISTSIZE=100000
+SAVESIZE=100000
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -103,5 +107,5 @@ alias l='ls -lh'
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
 
-export GO111MODULE=on
+export GO111MODULE=auto
 export GOPATH="$HOME/go"
