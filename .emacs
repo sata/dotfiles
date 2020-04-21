@@ -26,8 +26,6 @@
                   'projectile
                   'python-mode
                   'ruby-mode
-                  'alchemist
-                  'elixir-mode
                   'cc-mode
 
                   ;; go
@@ -48,8 +46,14 @@
                   'helm-lsp
                   'use-package
                   'yasnippet
+                  'eglot
 
                   'yaml-mode
+
+                  ;; elixir
+                  'exunit
+                  'alchemist
+                  'elixir-mode
                   )
 
 (setq ido-enable-flex-matching t)
@@ -75,6 +79,7 @@
 (require 'company-go)
 (require 'uniquify)
 (require 'lsp-mode)
+(require 'eglot)
 
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
@@ -245,9 +250,9 @@
 ;;   '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
 
 
-;; golang --------------------------------------------------------------
+;; lsp  --------------------------------------------------------------
 
-(setq lsp-file-watch-threshold 5000)
+(setq lsp-file-watch-threshold 10000)
 
 (use-package lsp-mode
   :ensure t
@@ -289,6 +294,13 @@
 (use-package flycheck-golangci-lint
   :ensure t
   :hook (go-mode . flycheck-golangci-lint-setup))
+
+;; elixir related
+
+(add-hook 'elixir-mode-hook #'lsp)
+(add-hook 'elixir-mode-hook 'eglot-ensure)
+(add-to-list 'eglot-server-programs `(elixir-mode "language_server.sh"))
+
 ;; ---------------------------------------------------------------------
 
 (projectile-mode 1)
@@ -307,7 +319,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(ag alchemist cc-mode cl-lib company company-go company-lsp cyberpunk-theme elixir-mode expand-region flycheck flycheck-golangci-lint go-mode go-projectile go-tag gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui magit markdown-mode nyan-mode package+ paredit projectile python-mode ruby-mode ssh use-package web-mode yaml-mode yasnippet)))
+   '(ag alchemist cc-mode cl-lib company company-go company-lsp cyberpunk-theme eglot elixir-mode expand-region exunit flycheck flycheck-golangci-lint go-mode go-projectile go-tag gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui magit markdown-mode nyan-mode package+ paredit projectile python-mode ruby-mode ssh use-package web-mode yaml-mode yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

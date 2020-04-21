@@ -63,8 +63,18 @@ gotools:
 	@go get golang.org/x/tools/cmd/godoc
 	@go get -u github.com/onsi/ginkgo/ginkgo
 
+# fuck me, this is why no one likes the BEAM.
+# compare this to go get .../gopls@latest... ;_; <3 beam
+.PHONY: elixir-ls
+elixir-ls:
+	@ if [ ! -d ~/sources/elixir-ls ]; then \
+		cd ~/sources/ && git clone https://github.com/elixir-lsp/elixir-ls.git &&	\
+		cd elixir-ls && \
+		mix do local.hex --force, local.rebar --force, deps.get, elixir_ls.release; \
+	fi
+
 .PHONY: install
-install: ohmyzsh link asdf erlang elixir phx gotools
+install: ohmyzsh link asdf erlang elixir phx elixir-ls gotools
 
 
 
