@@ -15,8 +15,8 @@
                   'expand-region
                   'magit
                   'cl-lib
-		  'cyberpunk-theme
-		  'flycheck
+		              'cyberpunk-theme
+		              'flycheck
                   'company
                   'nyan-mode
                   'ssh
@@ -39,15 +39,17 @@
                   'flycheck-golangci-lint
 
                   'web-mode
-		  'package+
+		              'package+
                   ;; lsp
                   'lsp-mode
-		  'lsp-ui
+		              'lsp-ui
                   'company-lsp
                   'lsp-treemacs
                   'helm-lsp
                   'use-package
                   'yasnippet
+
+                  'yaml-mode
                   )
 
 (setq ido-enable-flex-matching t)
@@ -245,6 +247,8 @@
 
 ;; golang --------------------------------------------------------------
 
+(setq lsp-file-watch-threshold 5000)
+
 (use-package lsp-mode
   :ensure t
   :commands (lsp lsp-deferred)
@@ -303,7 +307,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(ag alchemist cc-mode cl-lib company company-go company-lsp cyberpunk-theme elixir-mode expand-region flycheck flycheck-golangci-lint go-mode go-projectile go-tag gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui magit markdown-mode nyan-mode package+ paredit projectile python-mode ruby-mode ssh use-package web-mode yasnippet)))
+   '(ag alchemist cc-mode cl-lib company company-go company-lsp cyberpunk-theme elixir-mode expand-region flycheck flycheck-golangci-lint go-mode go-projectile go-tag gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui magit markdown-mode nyan-mode package+ paredit projectile python-mode ruby-mode ssh use-package web-mode yaml-mode yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
