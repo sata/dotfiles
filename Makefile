@@ -60,6 +60,8 @@ gotools:
 	@go get -u github.com/haya14busa/gopkgs/cmd/gopkgs
 	@go get github.com/fatih/gomodifytags
 	@go get golang.org/x/tools/cmd/guru
+	@go get golang.org/x/tools/cmd/godoc
+	@go get -u github.com/onsi/ginkgo/ginkgo
 
 .PHONY: install
 install: ohmyzsh link asdf erlang elixir phx gotools
