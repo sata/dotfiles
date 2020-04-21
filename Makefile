@@ -1,6 +1,6 @@
 DOTFILES := $(shell find $(SOURCEDIR) -type f -name '.*')
 ERLANG_VERSION = 22.2.7
-ELIXIR_VERSION = v1.10.1
+ELIXIR_VERSION = v1.10.2
 PHOENIX_VERSION = 1.4.14
 
 all: install
