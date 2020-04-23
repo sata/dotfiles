@@ -52,7 +52,6 @@
 
                   ;; elixir
                   'exunit
-                  'alchemist
                   'elixir-mode
                   )
 
@@ -62,11 +61,11 @@
 (setq ido-create-new-buffer 'always)
 (setq ido-file-extensions-order '(".emacs" ".org" ".md"))
 (ido-mode 1)
+;; remember C-f when it interfers with new files, renaming files etc
 
 (require 'package+)
 (require 'nyan-mode)
 (require 'highlight-symbol)
-(require 'alchemist)
 (global-company-mode)
 (require 'elixir-mode)
 
@@ -296,21 +295,19 @@
   :hook (go-mode . flycheck-golangci-lint-setup))
 
 ;; elixir related
-
-(add-hook 'elixir-mode-hook #'lsp)
 (add-hook 'elixir-mode-hook 'eglot-ensure)
+(add-to-list 'auto-mode-alist '("\\.eex$" . web-mode))
+(add-to-list 'elixir-mode-hook 'company)
+(add-hook 'elixir-mode-hook
+          (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
+(add-hook 'elixir-mode-hook #'lsp)
 (add-to-list 'eglot-server-programs `(elixir-mode "language_server.sh"))
+
 
 ;; ---------------------------------------------------------------------
 
 (projectile-mode 1)
 (go-projectile-tools-add-path)
-
-;; elixir
-(add-to-list 'auto-mode-alist '("\\.eex$" . web-mode))
-(add-to-list 'elixir-mode-hook 'alchemist-mode 'company)
-
-(setq alchemist-hooks-compile-on-save t)
 
 ;; (ac-config-default)
 (custom-set-variables
@@ -319,7 +316,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(ag alchemist cc-mode cl-lib company company-go company-lsp cyberpunk-theme eglot elixir-mode expand-region exunit flycheck flycheck-golangci-lint go-mode go-projectile go-tag gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui magit markdown-mode nyan-mode package+ paredit projectile python-mode ruby-mode ssh use-package web-mode yaml-mode yasnippet)))
+   '(ag cc-mode cl-lib company company-go company-lsp cyberpunk-theme eglot elixir-mode expand-region exunit flycheck flycheck-golangci-lint go-mode go-projectile go-tag gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui magit markdown-mode nyan-mode package+ paredit projectile python-mode ruby-mode ssh use-package web-mode yaml-mode yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
