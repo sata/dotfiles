@@ -284,6 +284,8 @@
   :ensure t
   :commands company-lsp)
 
+(setq lsp-ui-flycheck-enable 1)
+
 ;; Optional - provides snippet support.
 (use-package yasnippet
   :ensure t
@@ -299,7 +301,7 @@
 (add-to-list 'auto-mode-alist '("\\.eex$" . web-mode))
 (add-to-list 'elixir-mode-hook 'company)
 (add-hook 'elixir-mode-hook
-          (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
+          (lambda () (add-hook 'before-save-hook 'lsp-format-buffer nil t)))
 (add-hook 'elixir-mode-hook #'lsp)
 (add-to-list 'eglot-server-programs `(elixir-mode "language_server.sh"))
 
