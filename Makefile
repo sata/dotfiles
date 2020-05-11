@@ -25,7 +25,12 @@ emacs-early-init:
 rather than emacs itself" >> ~/.emacs.d/early-init.el
 	@echo "(setq package-enable-at-startup nil)" >> ~/.emacs.d/early-init.el
 
-.PHONY: link
+.PHONY: i3
+i3:
+	@mkdir -p ~/.config/i3
+	@ln -sr i3-config ~/.config/i3/config
+
+.PHONY: link i3
 link:
 	@for dotfile in $(DOTFILES); do \
 		ln -sr $$dotfile ~/$$dotfile; \
