@@ -278,6 +278,8 @@
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1))
 
+(setq company-global-modes '(not org-mode not shell-mode))
+
 ;; company-lsp integrates company mode completion with lsp-mode.
 ;; completion-at-point also works out of the box but doesn't support snippets.
 (use-package company-lsp
