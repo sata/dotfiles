@@ -117,12 +117,6 @@
 
 (setq c-basic-offset 2)
 
-(global-set-key [(control f3)] 'highlight-symbol-at-point)
-(global-set-key [f3] 'highlight-symbol-next)
-(global-set-key [(shift f3)] 'highlight-symbol-prev)
-(global-set-key [(meta f3)] 'highlight-symbol-prev)
-
-
 ;; Python Hook 4 space tab
 (add-hook 'python-mode-hook
       (lambda ()
@@ -229,6 +223,7 @@
 
 ;; Add F12 to toggle line wrap
 (global-set-key (kbd "<f12>") 'toggle-truncate-lines)
+
 ;; tramp
 ;; (require 'tramp)
 (setq tramp-default-method "ssh")
@@ -278,7 +273,7 @@
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1))
 
-(setq company-global-modes '(not org-mode not shell-mode))
+(setq company-global-modes '(not org-mode not shell-mode eshell-mode))
 
 ;; company-lsp integrates company mode completion with lsp-mode.
 ;; completion-at-point also works out of the box but doesn't support snippets.
