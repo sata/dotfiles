@@ -53,6 +53,9 @@
                   ;; elixir
                   'exunit
                   'elixir-mode
+
+                  ;; c
+                  'ccls
                   )
 
 (setq ido-enable-flex-matching t)
@@ -303,6 +306,14 @@
 (add-to-list 'eglot-server-programs `(elixir-mode "language_server.sh"))
 
 
+;; ccls
+(use-package ccls
+  :hook ((c-mode c++-mode objc-mode cuda-mode) .
+         (lambda () (require 'ccls) (lsp))))
+
+(require 'ccls)
+(setq ccls-executable "ccls")
+
 ;; ---------------------------------------------------------------------
 
 (projectile-mode 1)
@@ -315,7 +326,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(ag cc-mode cl-lib company company-go company-lsp cyberpunk-theme eglot elixir-mode expand-region exunit flycheck flycheck-golangci-lint go-mode go-projectile go-tag gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui magit markdown-mode nyan-mode package+ paredit projectile python-mode ruby-mode ssh use-package web-mode yaml-mode yasnippet)))
+   '(ag cc-mode ccls cl-lib company company-go company-lsp cyberpunk-theme eglot elixir-mode expand-region exunit flycheck flycheck-golangci-lint go-mode go-projectile go-tag gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui magit markdown-mode nyan-mode package+ paredit projectile python-mode ruby-mode ssh use-package web-mode yaml-mode yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
