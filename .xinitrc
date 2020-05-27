@@ -2,4 +2,9 @@ setxkbmap -option ctrl:nocaps
 setxkbmap -option compose:ralt
 xinput disable 'Elan Touchpad'
 
-#xidlehook --not-when-fullscreen --not-when-audio --timer normal 600 'i3lock -i ~/documents/screensaver.png -t -ef -n' '' &
+xidlehook --not-when-fullscreen \
+          --not-when-audio \
+          --timer 600 \
+          'i3lock -i ~/documents/screensaver.png -t -e -f -n' '' \
+          --timer 1800 \
+          'systemctl suspend' '' &
