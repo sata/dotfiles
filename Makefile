@@ -14,7 +14,7 @@ deps:
 			        libwxgtk3.0-gtk3-0v5 tmux												\
 			        inotify-tools tig okular cargo									\
 							# for xidlehook
-							libxcb-screensaver0
+							libxcb-screensaver0*
 
 .PHONY: ohmyzsh
 ohmyzsh:
