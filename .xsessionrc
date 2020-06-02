@@ -5,6 +5,4 @@ xinput disable 'Elan Touchpad'
 xidlehook --not-when-fullscreen \
           --not-when-audio \
           --timer 600 \
-          'i3lock -i ~/documents/screensaver.png -t -e -f -n' '' \
-          --timer 1800 \
-          'systemctl suspend' '' &
+          'i3lock -i ~/documents/screensaver.png -t -e -f -n' '' &
