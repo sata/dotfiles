@@ -39,7 +39,7 @@ i3:
 nobeep:
 	@sudo bash -c 'echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf'
 
-.PHONY: link i3
+.PHONY: link
 link:
 	@for dotfile in $(DOTFILES); do \
 		ln -sr $$dotfile ~/$$dotfile; \
@@ -89,7 +89,4 @@ elixir-ls:
 
 .PHONY: install
 install: ohmyzsh link nobeep asdf erlang elixir phx elixir-ls gotools
-
-
-
 
