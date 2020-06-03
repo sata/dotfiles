@@ -35,6 +35,10 @@ i3:
 	# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=954036
 	@cargo install xidlehook --bins
 
+.PHONY: nobeep
+nobeep:
+	@sudo bash -c 'echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf'
+
 .PHONY: link i3
 link:
 	@for dotfile in $(DOTFILES); do \
@@ -84,7 +88,7 @@ elixir-ls:
 	fi
 
 .PHONY: install
-install: ohmyzsh link asdf erlang elixir phx elixir-ls gotools
+install: ohmyzsh link nobeep asdf erlang elixir phx elixir-ls gotools
 
 
 
