@@ -314,6 +314,8 @@
 (require 'ccls)
 (setq ccls-executable "ccls")
 
+(setq ring-bell-function 'ignore)
+
 ;; ---------------------------------------------------------------------
 
 (projectile-mode 1)
