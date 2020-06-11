@@ -110,3 +110,10 @@ alias l='ls -lh'
 
 export GO111MODULE=auto
 export GOPATH="$HOME/go"
+
+# xkbmap is being set in /etc/default/keyboard
+initkbd () {
+    setxkbmap -option ctrl:nocaps
+    setxkbmap -option compose:ralt
+    xinput disable 'Elan Touchpad'
+}

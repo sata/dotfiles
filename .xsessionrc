@@ -1,8 +1,6 @@
-setxkbmap -option ctrl:nocaps
-setxkbmap -option compose:ralt
-xinput disable 'Elan Touchpad'
+initkbd
 
-xidlehook --not-when-fullscreen \
-          --not-when-audio \
-          --timer 600 \
-          'i3lock -i ~/documents/screensaver.png -t -e -f -n' '' &
+xset s on
+xset s 180 120
+xss-lock -- i3lock -i ~/documents/screensaver.png -t -e -f -n&
+redshift-gtk -l 51.5074:0.1278&
