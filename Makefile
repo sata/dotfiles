@@ -13,8 +13,8 @@ deps:
 			        libwxgtk3.0-gtk3-dev														\
 			        libwxgtk3.0-gtk3-0v5 tmux												\
 			        inotify-tools tig okular cargo									\
-							# for xidlehook
-							libxcb-screensaver0*
+							xss-lock
+
 
 .PHONY: ohmyzsh
 ohmyzsh:
@@ -31,9 +31,6 @@ rather than emacs itself" >> ~/.emacs.d/early-init.el
 i3:
 	@mkdir -p ~/.config/i3
 	@ln -sr i3-config ~/.config/i3/config
-	# when ever this is sorted
-	# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=954036
-	@cargo install xidlehook --bins
 
 .PHONY: nobeep
 nobeep:
