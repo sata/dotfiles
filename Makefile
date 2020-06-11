@@ -13,7 +13,7 @@ deps:
            libwxgtk3.0-gtk3-dev                              \
            libwxgtk3.0-gtk3-0v5 tmux                         \
            inotify-tools tig okular cargo                    \
-           xss-lock
+           xss-lock playerctl
 
 
 .PHONY: ohmyzsh
