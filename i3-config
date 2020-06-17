@@ -2,10 +2,10 @@ set $mod Mod4
 
 font pango:monospace 8
 
-exec xinput disable 'Elan Touchpad'
+exec_always --no-startup-id sleep 1; xinput disable 'Elan Touchpad'
+exec_always --no-startup-id sleep 1; xset s on
+exec_always --no-startup-id sleep 1; xset s 180 120
 
-exec xset s on
-exec xset s 180 120
 exec --no-startup-id xss-lock -l -- i3lock -i ~/documents/screensaver.png -t -e -f -n
 exec --no-startup-id redshift-gtk -l 51.51:-0.19 -t 6200:4500
 exec --no-startup-id nm-applet
@@ -171,3 +171,11 @@ bindsym $mod+m bar mode toggle
 bar {
         status_command i3status
 }
+
+for_window [class = "Firefox"] layout tabbed
+for_window [class="Spotify"] move to workspace $ws10
+
+exec --no-startup-id i3-msg 'workspace $ws1; exec firefox-esr; workspace $ws1'
+exec --no-startup-id i3-msg 'workspace $ws2; exec emacs; workspace $ws1'
+exec --no-startup-id i3-msg 'workspace $ws3; exec i3-sensible-terminal; workspace $ws1'
+exec --no-startup-id spotify
