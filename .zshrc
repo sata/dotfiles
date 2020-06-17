@@ -33,3 +33,5 @@ alias l='ls -lh'
 
 export GO111MODULE=auto
 export GOPATH="$HOME/go"
+
+export EDITOR="emacs -nw"
