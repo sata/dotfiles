@@ -7,13 +7,13 @@ all: install
 
 .PHONY: deps
 deps:
- sudo apt-get -y install zsh procps curl gcc build-essential \
-           automake autoconf libncurses5-dev                 \
-           libssl-dev flex xsltproc                          \
-           libwxgtk3.0-gtk3-dev                              \
-           libwxgtk3.0-gtk3-0v5 tmux                         \
-           inotify-tools tig okular cargo                    \
-           xss-lock playerctl
+	 sudo apt-get -y install zsh procps curl gcc build-essential \
+           automake autoconf libncurses5-dev                   \
+           libssl-dev flex xsltproc                            \
+           libwxgtk3.0-gtk3-dev                                \
+           libwxgtk3.0-gtk3-0v5 tmux                           \
+           inotify-tools tig okular cargo                      \
+           xss-lock playerctl i3 suckless-tools
 
 
 .PHONY: ohmyzsh
