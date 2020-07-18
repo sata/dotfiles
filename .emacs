@@ -56,6 +56,12 @@
 
                   ;; c
                   'ccls
+
+                  ;; rust
+                  'toml-mode
+                  'rust-mode
+                  'cargo
+                  'flycheck-rust
                   )
 
 (setq ido-enable-flex-matching t)
@@ -319,6 +325,18 @@
 
 (setq ring-bell-function 'ignore)
 
+;; rust
+(use-package toml-mode)
+(use-package rust-mode
+  :hook (rust-mode . lsp))
+
+;; Add keybindings for interacting with Cargo
+(use-package cargo
+  :hook (rust-mode . cargo-minor-mode))
+
+(use-package flycheck-rust
+  :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+
 ;; nicked from https://stackoverflow.com/questions/915985/
 ;; Align with spaces only
 (defadvice align-regexp (around align-regexp-with-spaces)
@@ -339,7 +357,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(ag cc-mode ccls cl-lib company company-go company-lsp cyberpunk-theme eglot elixir-mode expand-region exunit flycheck flycheck-golangci-lint go-mode go-projectile go-tag gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui magit markdown-mode nyan-mode package+ paredit projectile python-mode ruby-mode ssh use-package web-mode yaml-mode yasnippet)))
+   '(ag cargo cc-mode ccls cl-lib company company-go company-lsp cyberpunk-theme eglot elixir-mode expand-region exunit flycheck flycheck-golangci-lint flycheck-rust go-mode go-projectile go-tag gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui magit markdown-mode nyan-mode package+ paredit projectile python-mode ruby-mode rust-mode ssh toml-mode use-package web-mode yaml-mode yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
