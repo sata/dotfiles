@@ -5,6 +5,9 @@ PHOENIX_VERSION = 1.4.14
 
 all: install
 
+.PHONY: install
+install: ohmyzsh link nobeep asdf erlang elixir phx elixir-ls gotools rust
+
 .PHONY: deps
 deps:
 	 sudo apt-get -y install zsh procps curl gcc build-essential \
@@ -84,6 +87,6 @@ elixir-ls:
 		mix do local.hex --force, local.rebar --force, deps.get, elixir_ls.release; \
 	fi
 
-.PHONY: install
-install: ohmyzsh link nobeep asdf erlang elixir phx elixir-ls gotools
-
+.PHONY: rust
+rust:
+	@curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
