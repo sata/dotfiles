@@ -13,8 +13,7 @@ deps:
            libwxgtk3.0-gtk3-dev                                \
            libwxgtk3.0-gtk3-0v5 tmux                           \
            inotify-tools tig okular cargo                      \
-           xss-lock playerctl i3 suckless-tools texinfo 
-
+           xss-lock playerctl i3 suckless-tools texinfo
 
 .PHONY: ohmyzsh
 ohmyzsh:
@@ -66,13 +65,14 @@ phx:
 
 .PHONY: gotools
 gotools:
-	-@curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b `go env GOPATH`/bin v1.24.0
-	@go get golang.org/x/tools/gopls@latest
-	@go get -u github.com/haya14busa/gopkgs/cmd/gopkgs
-	@go get github.com/fatih/gomodifytags
-	@go get golang.org/x/tools/cmd/guru
-	@go get golang.org/x/tools/cmd/godoc
-	@go get -u github.com/onsi/ginkgo/ginkgo
+	-@curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | \
+		sh -s -- -b `go env GOPATH`/bin v1.24.0
+	@GO111MODULE=on go get -u golang.org/x/tools/gopls@latest \
+                            github.com/haya14busa/gopkgs/cmd/gopkgs \
+                            github.com/fatih/gomodifytags \
+                            golang.org/x/tools/cmd/guru \
+                            golang.org/x/tools/cmd/godoc \
+                            github.com/onsi/ginkgo/ginkgo
 
 # fuck me, this is why no one likes the BEAM.
 # compare this to go get .../gopls@latest... ;_; <3 beam
