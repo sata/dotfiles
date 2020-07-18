@@ -337,6 +337,9 @@
 (use-package flycheck-rust
   :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 
+(add-hook 'before-save-hook (lambda () (when (eq 'rust-mode major-mode)
+                                         (lsp-format-buffer))))
+
 ;; nicked from https://stackoverflow.com/questions/915985/
 ;; Align with spaces only
 (defadvice align-regexp (around align-regexp-with-spaces)
