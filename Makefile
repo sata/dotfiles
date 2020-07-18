@@ -11,12 +11,13 @@ install: ohmyzsh link nobeep asdf erlang elixir phx elixir-ls gotools rust
 .PHONY: deps
 deps:
 	 sudo apt-get -y install zsh procps curl gcc build-essential \
-           automake autoconf libncurses5-dev                   \
-           libssl-dev flex xsltproc                            \
-           libwxgtk3.0-gtk3-dev                                \
-           libwxgtk3.0-gtk3-0v5 tmux                           \
-           inotify-tools tig okular cargo                      \
-           xss-lock playerctl i3 suckless-tools texinfo
+                           automake autoconf libncurses5-dev   \
+                           libssl-dev flex xsltproc            \
+                           libwxgtk3.0-gtk3-dev                \
+                           libwxgtk3.0-gtk3-0v5 tmux           \
+                           inotify-tools tig okular cargo      \
+                           xss-lock playerctl i3               \
+                           suckless-tools texinfo
 
 .PHONY: ohmyzsh
 ohmyzsh:
