@@ -1,8 +1,9 @@
 ;; (unless package--initialized (package-initialize)) ;; emacs27 does this before evaluating user config file
 
 (add-to-list 'package-archives '("elpa" . "http://elpa.gnu.org/packages/"))
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 
 ;; don't think I need this for emacs27
 ;; (unless package-archive-contents
@@ -62,6 +63,9 @@
                   'rust-mode
                   'cargo
                   'flycheck-rust
+
+                  ;; presentation
+                  'org-re-reveal
                   )
 
 (setq ido-enable-flex-matching t)
@@ -140,8 +144,6 @@
 
 (setq default-frame-alist
       '( (font . "DejaVu Sans Mono-10")
-         ;; (font . "-B&H-LucidaTypewriter-Medium-R-Normal-Sans-13-*-*-*-*-*-*-*")
-        ;; (font . "-DAMA-Ubuntu Mono-normal-normal-normal-*-10-*-*-*-m-0-iso10646-1")
 	))
 
 (load-theme 'cyberpunk t)
@@ -252,6 +254,9 @@
 (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
 (setq plantuml-output-type `"ascii")
 
+(setq plantuml-jar-path "/home/s/plantuml.jar")
+(setq plantuml-default-exec-mode 'jar)
+
 ;; (eval-after-load 'flycheck
 ;;   '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
 
@@ -348,6 +353,12 @@
     ad-do-it))
 (ad-activate 'align-regexp)
 
+
+;; presentation
+(require 'org-re-reveal)
+(setq org-re-reveal-root "file:///home/s/sources/reveal.js")
+(setq org-re-reveal-revealjs-version "4")
+
 ;; ---------------------------------------------------------------------
 
 (projectile-mode 1)
@@ -360,7 +371,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(ag cargo cc-mode ccls cl-lib company company-go company-lsp cyberpunk-theme eglot elixir-mode expand-region exunit flycheck flycheck-golangci-lint flycheck-rust go-mode go-projectile go-tag gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui magit markdown-mode nyan-mode package+ paredit projectile python-mode ruby-mode rust-mode ssh toml-mode use-package web-mode yaml-mode yasnippet)))
+   '(ag cargo cc-mode ccls cl-lib company company-go company-lsp cyberpunk-theme eglot elixir-mode expand-region exunit flycheck flycheck-golangci-lint flycheck-rust go-mode go-projectile go-tag gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui magit markdown-mode nyan-mode org-re-reveal package+ paredit projectile python-mode ruby-mode rust-mode ssh toml-mode use-package web-mode yaml-mode yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
