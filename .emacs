@@ -252,10 +252,11 @@
 
 ;; plantuml
 (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
-(setq plantuml-output-type `"ascii")
+(add-to-list 'auto-mode-alist '("\\.puml\\'" . plantuml-mode))
 
 (setq plantuml-jar-path "/home/s/plantuml.jar")
 (setq plantuml-default-exec-mode 'jar)
+(setq plantuml-output-type '"txt")
 
 ;; (eval-after-load 'flycheck
 ;;   '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
