@@ -2,11 +2,12 @@ DOTFILES := $(shell find $(SOURCEDIR) -type f -name '.*')
 ERLANG_VERSION = 22.3
 ELIXIR_VERSION = v1.10.2
 PHOENIX_VERSION = 1.4.14
+ADR_TOOLS_VERSION = 3.0.0
 
 all: install
 
 .PHONY: install
-install: ohmyzsh link nobeep asdf erlang elixir phx elixir-ls gotools rust
+install: ohmyzsh link nobeep asdf erlang elixir phx elixir-ls gotools rust adr-install
 
 .PHONY: deps
 deps:
@@ -93,3 +94,9 @@ rust:
 	@curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 	@rustup component add rls rust-analysis rust-src rustfmt
 
+
+.PHONY: adr-install
+adr-install:
+	@asdf plugin-add adr-tools
+	@asdf install adr-tools "${ADR_TOOLS_VERSION}"
+	@asdf global adr-tools "${ADR_TOOLS_VERSION}"
