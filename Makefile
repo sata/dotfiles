@@ -7,7 +7,7 @@ ADR_TOOLS_VERSION = 3.0.0
 all: install
 
 .PHONY: install
-install: ohmyzsh link nobeep asdf erlang elixir phx elixir-ls gotools rust adr-install
+install: ohmyzsh link nobeep asdf erlang elixir phx elixir-ls gotools rust adr-install tf-install
 
 .PHONY: deps
 deps:
@@ -100,3 +100,13 @@ adr-install:
 	@asdf plugin-add adr-tools
 	@asdf install adr-tools "${ADR_TOOLS_VERSION}"
 	@asdf global adr-tools "${ADR_TOOLS_VERSION}"
+
+.PHONY: tfenv-install
+tfenv-install:
+	-@git clone https://github.com/tfutils/tfenv.git ~/.tfenv
+
+.PHONY: tf-install
+tf-install: tfenv-install
+	@tfenv install 0.11.14
+	@tfenv install latest:^0.12
+	@tfenv install latest:^0.13
