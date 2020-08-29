@@ -24,6 +24,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 alias dh="ssh first_one"
+alias rpi="ssh rpi"
+
 alias gr="grep -ri"
 alias ll='ls -alh'
 alias l='ls -lh'
