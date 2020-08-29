@@ -110,3 +110,4 @@ tf-install: tfenv-install
 	@tfenv install 0.11.14
 	@tfenv install latest:^0.12
 	@tfenv install latest:^0.13
+	@go get github.com/hashicorp/terraform-ls
