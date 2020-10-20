@@ -18,7 +18,8 @@ deps:
                            libwxgtk3.0-gtk3-0v5 tmux           \
                            inotify-tools tig okular cargo      \
                            xss-lock playerctl i3               \
-                           suckless-tools texinfo
+                           suckless-tools texinfo              \
+                           xfce4-clipman
 
 .PHONY: ohmyzsh
 ohmyzsh:
