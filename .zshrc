@@ -38,3 +38,5 @@ export GO111MODULE=auto
 export GOPATH="$HOME/go"
 
 export EDITOR="emacs -nw"
+
+[[ -s "/home/s/.gvm/scripts/gvm" ]] && source "/home/s/.gvm/scripts/gvm"
