@@ -19,7 +19,7 @@ deps:
                            inotify-tools tig okular cargo      \
                            xss-lock playerctl i3               \
                            suckless-tools texinfo              \
-                           xfce4-clipman rofi
+                           xfce4-clipman rofi ripgrep
 
 .PHONY: ohmyzsh
 ohmyzsh:
