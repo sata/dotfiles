@@ -40,3 +40,4 @@ export GOPATH="$HOME/go"
 export EDITOR="emacs -nw"
 
 [[ -s "/home/s/.gvm/scripts/gvm" ]] && source "/home/s/.gvm/scripts/gvm"
+if [ -e /home/s/.nix-profile/etc/profile.d/nix.sh ]; then . /home/s/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
