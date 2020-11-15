@@ -19,7 +19,7 @@ deps:
                            inotify-tools tig okular cargo      \
                            xss-lock playerctl i3               \
                            suckless-tools texinfo              \
-                           xfce4-clipman
+                           xfce4-clipman rofi
 
 .PHONY: ohmyzsh
 ohmyzsh:
@@ -33,9 +33,14 @@ rather than emacs itself" >> ~/.emacs.d/early-init.el
 	@echo "(setq package-enable-at-startup nil)" >> ~/.emacs.d/early-init.el
 
 .PHONY: i3
-i3:
+i3: rofi
 	@mkdir -p ~/.config/i3
 	@ln -sr i3-config ~/.config/i3/config
+
+.PHONY: rofi
+rofi:
+	@mkdir -p ~/.config/rofi
+	@ln -sr config.rasi ~/.config/rofi/
 
 .PHONY: nobeep
 nobeep:
