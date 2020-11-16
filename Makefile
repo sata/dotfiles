@@ -19,7 +19,7 @@ deps:
                            inotify-tools tig okular cargo      \
                            xss-lock playerctl i3               \
                            suckless-tools texinfo              \
-                           xfce4-clipman rofi ripgrep
+                           rofi ripgrep
 
 .PHONY: ohmyzsh
 ohmyzsh:
@@ -33,7 +33,7 @@ rather than emacs itself" >> ~/.emacs.d/early-init.el
 	@echo "(setq package-enable-at-startup nil)" >> ~/.emacs.d/early-init.el
 
 .PHONY: i3
-i3: rofi
+i3: rofi greenclip
 	@mkdir -p ~/.config/i3
 	@ln -sr i3-config ~/.config/i3/config
 
@@ -41,6 +41,11 @@ i3: rofi
 rofi:
 	@mkdir -p ~/.config/rofi
 	@ln -sr config.rasi ~/.config/rofi/
+
+.PHONY: greenclip
+greenclip:
+	@curl -L -o ~/bin/greenclip https://github.com/erebe/greenclip/releases/download/3.3/greenclip
+	chmod u+x ~/bin/greenclip
 
 .PHONY: nobeep
 nobeep:
