@@ -1,7 +1,5 @@
 configuration {
- modi: "window,drun,ssh,combi";
- theme: "solarized";
+ modi: "drun";
+ theme: "Arc-Dark";
  font: "hack 10";
- combi-modi: "window,drun,ssh";
- }
- 
+}
