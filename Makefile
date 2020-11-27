@@ -16,7 +16,7 @@ deps:
 		libssl-dev flex xsltproc libwxgtk3.0-gtk3-dev libwxgtk3.0-gtk3-0v5 tmux	\
 		inotify-tools tig okular cargo xss-lock playerctl i3 suckless-tools			\
 		texinfo	rofi ripgrep libgccjit0	libjansson-dev libxaw7-dev							\
-		libjansson4 libgccjit-10-dev           																	\
+		libjansson4 libgccjit-10-dev fonts-firacode															\
 
 .PHONY: ohmyzsh
 ohmyzsh:
@@ -28,7 +28,7 @@ emacs:
 	cd ~/sources/emacs && \
 	git pull && git checkout feature/native-comp && \
 	./autogen.sh && \
-	./configure --with-nativecomp --with-json--with-xft && \
+	./configure --with-nativecomp --with-json  && \
 	make -j `nproc --ignore 1` && \
 	sudo make install
 

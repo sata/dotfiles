@@ -1,12 +1,6 @@
-;; (unless package--initialized (package-initialize)) ;; emacs27 does this before evaluating user config file
-
 (add-to-list 'package-archives '("elpa" . "http://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
-
-;; don't think I need this for emacs27
-;; (unless package-archive-contents
-;;   (package-refresh-contents))
 
 (setq comp-deferred-compilation t)
 
@@ -115,6 +109,10 @@
 (nyan-mode)
 (nyan-start-animation)
 
+(setq default-frame-alist
+      '( (font . "-CTDB-Fira Code-semibold-normal-normal-*-15-*-*-*-d-0-iso10646-1")
+       ))
+
 (defun better-defaults ()
   (progn
     (tool-bar-mode -1) (scroll-bar-mode -1)
@@ -155,10 +153,6 @@
 
 (setq cperl-indent-level 2)
 (setq cperl-invalid-face (quote off))
-
-(setq default-frame-alist
-      '( (font . "DejaVu Sans Mono-10")
-	))
 
 (load-theme 'cyberpunk t)
 
@@ -397,6 +391,7 @@
  '(package-selected-packages
    '(ag cargo cc-mode ccls cl-lib company company-go company-lsp cyberpunk-theme eglot elixir-mode expand-region exunit flycheck flycheck-golangci-lint flycheck-plantuml flycheck-rust go-mode go-projectile go-tag gotest helm-lsp highlight-symbol htmlize lsp-mode lsp-treemacs lsp-ui lua-mode magit markdown-mode nix-mode nyan-mode org-re-reveal package+ paredit plantuml-mode projectile python-mode ruby-mode rust-mode ssh terraform-mode toml-mode use-package web-mode yaml-mode yasnippet))
  '(warning-suppress-log-types '((comp))))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
