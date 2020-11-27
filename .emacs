@@ -2,12 +2,13 @@
 
 (add-to-list 'package-archives '("elpa" . "http://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 
 ;; don't think I need this for emacs27
 ;; (unless package-archive-contents
 ;;   (package-refresh-contents))
+
+(setq comp-deferred-compilation t)
 
 (unless (package-installed-p 'package+)
   (package-install 'package+))
@@ -394,7 +395,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(ag cargo cc-mode ccls cl-lib company company-go company-lsp cyberpunk-theme eglot elixir-mode expand-region exunit flycheck flycheck-golangci-lint flycheck-plantuml flycheck-rust go-mode go-projectile go-tag gotest helm-lsp highlight-symbol htmlize lsp-mode lsp-treemacs lsp-ui lua-mode magit markdown-mode nix-mode nyan-mode org-re-reveal package+ paredit plantuml-mode projectile python-mode ruby-mode rust-mode ssh terraform-mode toml-mode use-package web-mode yaml-mode yasnippet)))
+   '(ag cargo cc-mode ccls cl-lib company company-go company-lsp cyberpunk-theme eglot elixir-mode expand-region exunit flycheck flycheck-golangci-lint flycheck-plantuml flycheck-rust go-mode go-projectile go-tag gotest helm-lsp highlight-symbol htmlize lsp-mode lsp-treemacs lsp-ui lua-mode magit markdown-mode nix-mode nyan-mode org-re-reveal package+ paredit plantuml-mode projectile python-mode ruby-mode rust-mode ssh terraform-mode toml-mode use-package web-mode yaml-mode yasnippet))
+ '(warning-suppress-log-types '((comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

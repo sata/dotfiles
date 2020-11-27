@@ -11,19 +11,26 @@ install: ohmyzsh link nobeep asdf erlang elixir phx elixir-ls gotools rust adr-i
 
 .PHONY: deps
 deps:
-	 sudo apt-get -y install zsh procps curl gcc build-essential \
-                           automake autoconf libncurses5-dev   \
-                           libssl-dev flex xsltproc            \
-                           libwxgtk3.0-gtk3-dev                \
-                           libwxgtk3.0-gtk3-0v5 tmux           \
-                           inotify-tools tig okular cargo      \
-                           xss-lock playerctl i3               \
-                           suckless-tools texinfo              \
-                           rofi ripgrep
+	 sudo apt-get -y install \
+		zsh procps curl gcc build-essential automake autoconf libncurses5-dev		\
+		libssl-dev flex xsltproc libwxgtk3.0-gtk3-dev libwxgtk3.0-gtk3-0v5 tmux	\
+		inotify-tools tig okular cargo xss-lock playerctl i3 suckless-tools			\
+		texinfo	rofi ripgrep libgccjit0	libjansson-dev libxaw7-dev							\
+		libjansson4 libgccjit-10-dev           																	\
 
 .PHONY: ohmyzsh
 ohmyzsh:
 	@sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+.PHONY: emacs
+emacs:
+	-@git clone git://git.sv.gnu.org/emacs.git ~/sources/emacs
+	cd ~/sources/emacs && \
+	git pull && git checkout feature/native-comp && \
+	./autogen.sh && \
+	./configure --with-nativecomp --with-json--with-xft && \
+	make -j `nproc --ignore 1` && \
+	sudo make install
 
 .PHONY: emacs-early-init
 emacs-early-init:
