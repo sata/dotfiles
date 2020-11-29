@@ -81,8 +81,8 @@
 (setq ido-use-filename-at-point 'guess)
 (setq ido-create-new-buffer 'always)
 (setq ido-file-extensions-order '(".emacs" ".org" ".md"))
-(ido-mode 1)
-;; remember C-f when it interfers with new files, renaming files etc
+
+(ido-mode 1) ;; remember C-f when it interfers with new files, renaming files etc
 
 (require 'package+)
 (require 'nyan-mode)
