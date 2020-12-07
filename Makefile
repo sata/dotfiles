@@ -16,7 +16,7 @@ deps:
 		libssl-dev flex xsltproc libwxgtk3.0-gtk3-dev libwxgtk3.0-gtk3-0v5 tmux	\
 		inotify-tools tig okular cargo xss-lock playerctl i3 suckless-tools			\
 		texinfo	rofi ripgrep libgccjit0	libjansson-dev libxaw7-dev							\
-		libjansson4 libgccjit-10-dev fonts-firacode	cmake libtool-bin						\
+		libjansson4 libgccjit-10-dev fonts-firacode	cmake libtool-bin	sqlite3		\
 
 .PHONY: ohmyzsh
 ohmyzsh:
