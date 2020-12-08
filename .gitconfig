@@ -37,6 +37,9 @@
     dc = diff --cached
     bisect-fixed = bisect bad
     bisect-unfixed = bisect good
+    pushforcegentle = push --force-with-lease
+    wip = for-each-ref --sort='-authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads
+
 [i18n]
 	logoutputencoding = utf8
 	commitencoding = utf8
