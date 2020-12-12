@@ -17,6 +17,7 @@ deps:
 		inotify-tools tig okular cargo xss-lock playerctl i3 suckless-tools			\
 		texinfo	rofi ripgrep libgccjit0	libjansson-dev libxaw7-dev							\
 		libjansson4 libgccjit-10-dev fonts-firacode	cmake libtool-bin	sqlite3		\
+		shellcheck                                                              \
 
 .PHONY: ohmyzsh
 ohmyzsh:
