@@ -113,7 +113,7 @@
 (nyan-start-animation)
 
 (setq default-frame-alist
-      '( (font . "-CTDB-Fira Code-semibold-normal-normal-*-15-*-*-*-d-0-iso10646-1")
+      '( (font . "-CTDB-Fira Code-semibold-normal-normal-*-13-*-*-*-d-0-iso10646-1")
        ))
 
 (defun better-defaults ()
@@ -132,10 +132,7 @@
 (setq inhibit-startup-message t)
 (global-font-lock-mode t)
 (fset 'yes-or-no-p 'y-or-n-p)
-(setq line-number-mode               t)
-(setq column-number-mode             t)
-;; (split-window-horizontally)
-;; (balance-windows)
+(global-display-line-numbers-mode)
 (global-hi-lock-mode 1)
 
 (setq-default
