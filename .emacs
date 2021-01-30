@@ -232,6 +232,8 @@
               (("C-c n i" . org-roam-insert))
               (("C-c n I" . org-roam-insert-immediate))))
 
+(setq org-roam-completion-system 'ido)
+
 (global-set-key [(f6)] (lambda () (interactive) (erlang-man-function (current-word))))
 
 (setq-default show-trailing-whitespace t)
