@@ -24,7 +24,6 @@
                   'ruby-mode
                   'cc-mode
 
-                  ;; go
                   'go-mode
                   'go-projectile
                   'company-go
@@ -34,7 +33,7 @@
 
                   'web-mode
 		              'package+
-                  ;; lsp
+
                   'lsp-mode
 		              'lsp-ui
                   'company-lsp
@@ -46,51 +45,77 @@
 
                   'yaml-mode
 
-                  ;; elixir
                   'exunit
                   'elixir-mode
 
-                  ;; c
                   'ccls
 
-                  ;; rust
-                  'toml-mode
                   'rust-mode
+                  'toml-mode
                   'cargo
                   'flycheck-rust
 
-                  ;; presentation
-                  'org-re-reveal
-                  'htmlize
-
-                  ;; lua
                   'lua-mode
 
-                  ;; plantuml
                   'plantuml-mode
                   'flycheck-plantuml
 
-                  ;; tf
                   'terraform-mode
 
-                  ;; nix
                   'nix-mode
 
                   'vterm
                   'org-roam)
 
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(setq ido-use-filename-at-point 'guess)
-(setq ido-create-new-buffer 'always)
-(setq ido-file-extensions-order '(".emacs" ".org" ".md"))
 
-(ido-mode 1) ;; remember C-f when it interfers with new files, renaming files etc
+;; general config
+(load-theme 'cyberpunk t)
+(nyan-mode)
+(nyan-start-animation)
+
+(global-set-key (kbd "<f12>") 'toggle-truncate-lines)
+(global-set-key "\C-w" 'clipboard-kill-region)
+(global-set-key "\M-w" 'clipboard-kill-ring-save)
+(global-set-key "\C-y" 'clipboard-yank)
+
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+
+
+(setq-default
+ x-select-enable-clipboard t
+ apropos-do-all t
+ inhibit-default-init t
+ inhibit-startup-message t
+ tab-width 2
+ standard-indent 2
+ indent-tabs-mode nil
+ show-trailing-whitespace t
+ show-paren-delay 0
+ c-basic-offset 2
+
+ default-frame-alist
+      '( (font . "-CTDB-Fira Code-semibold-normal-normal-*-13-*-*-*-d-0-iso10646-1")
+       ))
+
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+(global-display-line-numbers-mode)
+(global-hi-lock-mode 1)
+(global-font-lock-mode t)
+(show-paren-mode 1)
+(global-company-mode)
+
+(setq backup-directory-alist `(("." . "~/.emacs.d/saves")))
+(setq backup-by-copying t)
+(setq delete-old-versions t
+  kept-new-versions 6
+  kept-old-versions 2
+  version-control t)
 
 (require 'package+)
 (require 'nyan-mode)
 (require 'highlight-symbol)
-(global-company-mode)
 (require 'elixir-mode)
 
 (require 'projectile)
@@ -104,108 +129,25 @@
 (require 'lsp-mode)
 (require 'eglot)
 
+(setq-default
+ ido-enable-flex-matching t
+ ido-everywhere t
+ ido-use-filename-at-point 'guess
+ ido-create-new-buffer 'always
+ ido-file-extensions-order '(".emacs" ".org" ".md"))
+(ido-mode 1)
+
+;; projectile
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 (projectile-global-mode)
-(nyan-mode)
-(nyan-start-animation)
 
-(setq default-frame-alist
-      '( (font . "-CTDB-Fira Code-semibold-normal-normal-*-13-*-*-*-d-0-iso10646-1")
-       ))
-
-(defun better-defaults ()
-  (progn
-    (tool-bar-mode -1) (scroll-bar-mode -1)
-;;    (defalias 'yes-or-no-p 'y-or-n-p)
-    (setq x-select-enable-clipboard t)
-;;    (setq-default save-place t) (require 'saveplace)
-    (global-set-key (kbd "M-/") 'hippie-expand)
-    (global-set-key (kbd "C-x C-b") 'ibuffer)
-    (setq apropos-do-all t)))
-
-(better-defaults)
-
-(setq inhibit-default-init t)
-(setq inhibit-startup-message t)
-(global-font-lock-mode t)
-(fset 'yes-or-no-p 'y-or-n-p)
-(global-display-line-numbers-mode)
-(global-hi-lock-mode 1)
-
-(setq-default
- tab-width 2
- standard-indent 2
- indent-tabs-mode nil)
-
-(setq c-basic-offset 2)
-
-;; Python Hook 4 space tab
-(add-hook 'python-mode-hook
-      (lambda ()
-        (setq python-indent 2)))
-
-;;; cperl-mode is preferred to perl-mode
-;;; "Brevity is the soul of wit" <foo at acm.org>
+;; perl
 (defalias 'perl-mode 'cperl-mode)
-
 (setq cperl-indent-level 2)
 (setq cperl-invalid-face (quote off))
-
-(load-theme 'cyberpunk t)
-
-;; parenthesis matching
-(show-paren-mode 1)
-(setq show-paren-delay 0)
-
-;; erlang related
-(defun set-erlang-dir (dir)
-  (let ((bin-dir (expand-file-name "bin" dir))
-        (tools-dirs (file-expand-wildcards
-                     (concat dir "/lib/tools-*/emacs"))))
-
-    (when tools-dirs
-      (add-to-list 'load-path (car tools-dirs))
-      (add-to-list 'exec-path bin-dir)
-      (defvar erlang-electric-commands
-        '(erlang-electric-comma
-          erlang-electric-semicolon
-          erlang-electric-gt
-          erlang-electric-newline))
-      (setq erlang-root-dir dir)
-      (require 'erlang-start))))
-
-(defun erl-root ()
-   (shell-command-to-string "erl -boot start_clean -noinput -noshell -eval 'io:format(os:getenv(\"ROOTDIR\")),halt().'"))
-
-(set-erlang-dir (erl-root))
-
-(setq erlang-indent-level 2)
-
-(defun my-erlang-mode-hook ()
-  ;; when starting an Erlang shell in Emacs, default in the node name
-  (setq inferior-erlang-machine-options '("-sname" "emacs"))
-  ;; add Erlang functions to an imenu menu
-  (imenu-add-to-menubar "imenu")
-  ;; customize keys
-  (local-set-key [return] 'newline-and-indent)
-  )
-;; Some Erlang customizations
-(add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
-
-;; (require 'flymake)
-;; (defun flymake-erlang-init ()
-;;   (let* ((temp-file (flymake-init-create-temp-buffer-copy
-;; 		     'flymake-create-temp-inplace))
-;; 	 (local-file (file-relative-name temp-file
-;; 		(file-name-directory buffer-file-name))))
-;;     (list "~/.emacs.d/check_erlang.erl" (list local-file))))
-
-;; (add-hook 'find-file-hook 'flymake-find-file-hook)
-
-;; (add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
 
 (require 'org-install)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
@@ -234,23 +176,6 @@
 
 (setq org-roam-completion-system 'ido)
 
-(global-set-key [(f6)] (lambda () (interactive) (erlang-man-function (current-word))))
-
-(setq-default show-trailing-whitespace t)
-
-;; proper copy clipboard
-(global-set-key "\C-w" 'clipboard-kill-region)
-(global-set-key "\M-w" 'clipboard-kill-ring-save)
-(global-set-key "\C-y" 'clipboard-yank)
-
-
-(setq backup-directory-alist `(("." . "~/.emacs.d/saves")))
-(setq backup-by-copying t)
-(setq delete-old-versions t
-  kept-new-versions 6
-  kept-old-versions 2
-  version-control t)
-
 ;; LaTeX
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
@@ -260,15 +185,6 @@
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
 (setq reftex-plug-into-AUCTeX t)
-
-;; Add F12 to toggle line wrap
-(global-set-key (kbd "<f12>") 'toggle-truncate-lines)
-
-;; tramp
-;; (require 'tramp)
-(setq tramp-default-method "ssh")
-
-(setq lpr-command "xpp")
 
 (autoload 'markdown-mode "markdown-mode"
    "Major mode for editing Markdown files" t)
@@ -354,7 +270,6 @@
 
 (add-hook 'terraform-mode-hook #'lsp)
 
-;; ccls
 (use-package ccls
   :hook ((c-mode c++-mode objc-mode cuda-mode) .
          (lambda () (require 'ccls) (lsp))))
@@ -387,16 +302,7 @@
     ad-do-it))
 (ad-activate 'align-regexp)
 
-
-;; presentation
-(require 'org-re-reveal)
-(setq org-re-reveal-root "file:///home/s/sources/reveal.js")
-(setq org-re-reveal-revealjs-version "4")
-
 ;; ---------------------------------------------------------------------
-
-(projectile-mode 1)
-(go-projectile-tools-add-path)
 
 ;; (ac-config-default)
 (custom-set-variables
@@ -405,7 +311,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(adoc-mode ag cargo cc-mode ccls cl-lib company company-go company-lsp cyberpunk-theme eglot elixir-mode expand-region exunit flycheck flycheck-golangci-lint flycheck-plantuml flycheck-rust go-mode go-projectile go-tag gotest helm-lsp highlight-symbol htmlize lsp-mode lsp-treemacs lsp-ui lua-mode magit markdown-mode nix-mode nyan-mode org-re-reveal org-roam package+ paredit plantuml-mode projectile py-autopep8 python-mode ruby-mode rust-mode ssh terraform-mode toml-mode use-package vterm web-mode yaml-mode yasnippet))
+   '(ag cargo cc-mode ccls cl-lib company company-go company-lsp cyberpunk-theme eglot elixir-mode expand-region exunit flycheck flycheck-golangci-lint flycheck-plantuml flycheck-rust go-mode go-projectile go-tag gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui lua-mode magit markdown-mode nix-mode nyan-mode org-roam package+ paredit plantuml-mode projectile python-mode ruby-mode rust-mode ssh terraform-mode toml-mode use-package vterm web-mode yaml-mode yasnippet))
  '(warning-suppress-log-types '((comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
