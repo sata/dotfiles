@@ -67,7 +67,6 @@
                   'vterm
                   'org-roam)
 
-
 ;; general config
 (load-theme 'cyberpunk t)
 (nyan-mode)
@@ -78,21 +77,37 @@
 (global-set-key "\M-w" 'clipboard-kill-ring-save)
 (global-set-key "\C-y" 'clipboard-yank)
 
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-
-
 (setq-default
+ ring-bell-function 'ignore
+ 
  x-select-enable-clipboard t
+
  apropos-do-all t
+
  inhibit-default-init t
  inhibit-startup-message t
+
  tab-width 2
  standard-indent 2
  indent-tabs-mode nil
  show-trailing-whitespace t
+
  show-paren-delay 0
+
  c-basic-offset 2
+
+ delete-old-versions t
+ backup-directory-alist `(("." . "~/.emacs.d/saves"))
+ kept-new-versions 4
+ kept-old-versions 2
+ version-control t
+ backup-by-copying t
+
+ ido-enable-flex-matching t
+ ido-everywhere t
+ ido-use-filename-at-point 'guess
+ ido-create-new-buffer 'always
+ ido-file-extensions-order '(".emacs" ".org" ".md")
 
  default-frame-alist
       '( (font . "-CTDB-Fira Code-semibold-normal-normal-*-13-*-*-*-d-0-iso10646-1")
@@ -105,13 +120,9 @@
 (global-font-lock-mode t)
 (show-paren-mode 1)
 (global-company-mode)
-
-(setq backup-directory-alist `(("." . "~/.emacs.d/saves")))
-(setq backup-by-copying t)
-(setq delete-old-versions t
-  kept-new-versions 6
-  kept-old-versions 2
-  version-control t)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(ido-mode 1)
 
 (require 'package+)
 (require 'nyan-mode)
@@ -128,14 +139,6 @@
 (require 'uniquify)
 (require 'lsp-mode)
 (require 'eglot)
-
-(setq-default
- ido-enable-flex-matching t
- ido-everywhere t
- ido-use-filename-at-point 'guess
- ido-create-new-buffer 'always
- ido-file-extensions-order '(".emacs" ".org" ".md"))
-(ido-mode 1)
 
 ;; projectile
 (projectile-mode +1)
@@ -276,8 +279,6 @@
 
 (require 'ccls)
 (setq ccls-executable "ccls")
-
-(setq ring-bell-function 'ignore)
 
 ;; rust
 (use-package toml-mode)
