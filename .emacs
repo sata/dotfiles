@@ -9,7 +9,6 @@
 
 (load custom-file)
 
-
 (unless (package-installed-p 'package+)
   (package-install 'package+))
 
@@ -81,8 +80,6 @@
 (global-set-key "\C-y" 'clipboard-yank)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
-
-(ido-mode 1)
 
 (use-package smex
   :ensure t

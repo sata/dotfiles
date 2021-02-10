@@ -20,7 +20,7 @@
  '(ido-enable-flex-matching t)
  '(ido-everywhere t)
  '(ido-file-extensions-order '(".emacs" ".org" ".md"))
- '(ido-mode 'both nil (ido))
+ '(ido-mode 1 nil (ido))
  '(ido-use-filename-at-point 'guess)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
@@ -28,6 +28,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    '(cargo cc-mode ccls cl-lib company company-go company-lsp cyberpunk-theme eglot elixir-mode exunit flycheck flycheck-golangci-lint flycheck-plantuml flycheck-rust go-mode go-projectile go-tag gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui lua-mode magit markdown-mode nix-mode nyan-mode org-roam package+ plantuml-mode projectile python-mode ruby-mode rust-mode ssh terraform-mode toml-mode use-package vterm web-mode yaml-mode yasnippet))
+ '(projectile-mode t nil (projectile))
  '(ring-bell-function 'ignore)
  '(scroll-bar-mode nil)
  '(show-paren-delay 0)
