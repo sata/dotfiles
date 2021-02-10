@@ -45,6 +45,11 @@ i3: rofi greenclip
 	@mkdir -p ~/.config/i3
 	@ln -sr i3-config ~/.config/i3/config
 
+.PHONY: redshift
+redshift:
+	@mkdir -p ~/.config/redshift
+	@ln -sr redshift.conf ~/.config/redshift/redshift.conf
+
 .PHONY: rofi
 rofi:
 	@mkdir -p ~/.config/rofi

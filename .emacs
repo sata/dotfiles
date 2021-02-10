@@ -79,7 +79,7 @@
 
 (setq-default
  ring-bell-function 'ignore
- 
+
  x-select-enable-clipboard t
 
  apropos-do-all t
