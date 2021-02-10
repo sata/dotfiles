@@ -1,9 +1,11 @@
-(setq package-archives
-      (append package-archives '(("elpa" . "http://elpa.gnu.org/packages/")
-                                 ("melpa" . "https://melpa.org/packages/")
-                                 ("org" . "https://orgmode.org/elpa/")))
-      comp-deferred-compilation t
-      custom-file "~/.emacs-custom.el")
+(add-to-list 'package-archives '("elpa" . "http://elpa.gnu.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
+
+
+(setq
+ comp-deferred-compilation t
+ custom-file "~/.emacs-custom.el")
 
 (load custom-file)
 
