@@ -7,16 +7,13 @@
 (unless (package-installed-p 'package+)
   (package-install 'package+))
 
-(package-manifest 'ag
-                  'expand-region
-                  'magit
+(package-manifest 'magit
                   'cl-lib
 		              'cyberpunk-theme
 		              'flycheck
                   'company
                   'nyan-mode
                   'ssh
-                  'paredit
                   'highlight-symbol
                   'markdown-mode
                   'projectile
@@ -149,8 +146,9 @@
 
 ;; perl
 (defalias 'perl-mode 'cperl-mode)
-(setq cperl-indent-level 2)
-(setq cperl-invalid-face (quote off))
+(setq
+ cperl-indent-level 2
+ cperl-invalid-face (quote off))
 
 (require 'org-install)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
@@ -159,9 +157,10 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-cc" 'org-capture)
 
-(setq org-agenda-files (list "~/org/"))
-(setq org-default-notes-file "~/org/notes.org")
-(setq org-log-done t)
+(setq
+ org-agenda-files (list "~/org/")
+ org-default-notes-file "~/org/notes.org"
+ org-log-done t)
 
 (use-package org-roam
       :ensure t
@@ -199,9 +198,10 @@
 (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
 (add-to-list 'auto-mode-alist '("\\.puml\\'" . plantuml-mode))
 
-(setq plantuml-jar-path "/home/s/plantuml.jar")
-(setq plantuml-default-exec-mode 'jar)
-(setq plantuml-output-type '"txt")
+(setq
+ plantuml-jar-path "/home/s/plantuml.jar"
+ plantuml-default-exec-mode 'jar
+ plantuml-output-type '"txt")
 
 ;; (eval-after-load 'flycheck
 ;;   '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
@@ -312,7 +312,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(ag cargo cc-mode ccls cl-lib company company-go company-lsp cyberpunk-theme eglot elixir-mode expand-region exunit flycheck flycheck-golangci-lint flycheck-plantuml flycheck-rust go-mode go-projectile go-tag gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui lua-mode magit markdown-mode nix-mode nyan-mode org-roam package+ paredit plantuml-mode projectile python-mode ruby-mode rust-mode ssh terraform-mode toml-mode use-package vterm web-mode yaml-mode yasnippet))
+   '(cargo cc-mode ccls cl-lib company company-go company-lsp cyberpunk-theme eglot elixir-mode exunit flycheck flycheck-golangci-lint flycheck-plantuml flycheck-rust go-mode go-projectile go-tag gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui lua-mode magit markdown-mode nix-mode nyan-mode org-roam package+ plantuml-mode projectile python-mode ruby-mode rust-mode ssh terraform-mode toml-mode use-package vterm web-mode yaml-mode yasnippet))
  '(warning-suppress-log-types '((comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
