@@ -1,6 +1,8 @@
-(add-to-list 'package-archives '("elpa" . "http://elpa.gnu.org/packages/"))
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+(setq package-archives
+      (append package-archives '(("elpa" . "http://elpa.gnu.org/packages/")
+                                 ("melpa" . "https://melpa.org/packages/")
+                                 ("org" . "https://orgmode.org/elpa/"))))
+
 
 (setq comp-deferred-compilation t)
 
@@ -120,6 +122,11 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (ido-mode 1)
+
+(use-package smex
+  :ensure t
+  :bind (("M-x" . smex))
+  :config (smex-initialize))
 
 (require 'package+)
 (require 'nyan-mode)
