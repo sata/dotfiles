@@ -1,9 +1,12 @@
 (setq package-archives
       (append package-archives '(("elpa" . "http://elpa.gnu.org/packages/")
                                  ("melpa" . "https://melpa.org/packages/")
-                                 ("org" . "https://orgmode.org/elpa/"))))
+                                 ("org" . "https://orgmode.org/elpa/")))
+      comp-deferred-compilation t
+      custom-file "~/.emacs-custom.el")
 
-(setq comp-deferred-compilation t)
+(load custom-file)
+
 
 (unless (package-installed-p 'package+)
   (package-install 'package+))
@@ -75,53 +78,8 @@
 (global-set-key "\M-w" 'clipboard-kill-ring-save)
 (global-set-key "\C-y" 'clipboard-yank)
 
-(setq-default
- ring-bell-function 'ignore
-
- x-select-enable-clipboard t
-
- apropos-do-all t
-
- inhibit-default-init t
- inhibit-startup-message t
-
- tab-width 2
- standard-indent 2
- indent-tabs-mode nil
- show-trailing-whitespace t
-
- show-paren-delay 0
-
- c-basic-offset 2
-
- delete-old-versions t
- backup-directory-alist `(("." . "~/.emacs.d/saves"))
- kept-new-versions 4
- kept-old-versions 2
- version-control t
- backup-by-copying t
-
- ido-enable-flex-matching t
- ido-everywhere t
- ido-use-filename-at-point 'guess
- ido-create-new-buffer 'always
- ido-file-extensions-order '(".emacs" ".org" ".md")
-
- vc-follow-symlinks t
- 
- default-frame-alist
-      '( (font . "-CTDB-Fira Code-semibold-normal-normal-*-13-*-*-*-d-0-iso10646-1")
-       ))
-
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(global-display-line-numbers-mode)
-(global-hi-lock-mode 1)
-(global-font-lock-mode t)
-(show-paren-mode 1)
-(global-company-mode)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
 (ido-mode 1)
 
 (use-package smex
@@ -310,21 +268,3 @@
   (let ((indent-tabs-mode nil))
     ad-do-it))
 (ad-activate 'align-regexp)
-
-;; ---------------------------------------------------------------------
-
-;; (ac-config-default)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(cargo cc-mode ccls cl-lib company company-go company-lsp cyberpunk-theme eglot elixir-mode exunit flycheck flycheck-golangci-lint flycheck-plantuml flycheck-rust go-mode go-projectile go-tag gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui lua-mode magit markdown-mode nix-mode nyan-mode org-roam package+ plantuml-mode projectile python-mode ruby-mode rust-mode ssh terraform-mode toml-mode use-package vterm web-mode yaml-mode yasnippet))
- '(warning-suppress-log-types '((comp))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

@@ -24,7 +24,7 @@ ohmyzsh:
 	@sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 .PHONY: emacs
-emacs: emacs-early-init
+emacs: emacs-extra-files
 	-@git clone git://git.sv.gnu.org/emacs.git ~/sources/emacs
 	cd ~/sources/emacs && \
 	git pull && git checkout feature/native-comp && \
@@ -33,10 +33,11 @@ emacs: emacs-early-init
 	make -j `nproc --ignore 1` && \
 	sudo make install
 
-.PHONY: emacs-early-init
-emacs-early-init:
+.PHONY: emacs-extra-files
+emacs-extra-files:
 	-@mkdir ~/.emacs.d
 	-@ln -sr early-init.el ~/.emacs.d/early-init.el
+	-@ln -sr emacs-custom.el ~/.emacs-custom.el
 
 .PHONY: i3
 i3: rofi greenclip
