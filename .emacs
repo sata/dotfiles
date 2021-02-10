@@ -3,7 +3,6 @@
                                  ("melpa" . "https://melpa.org/packages/")
                                  ("org" . "https://orgmode.org/elpa/"))))
 
-
 (setq comp-deferred-compilation t)
 
 (unless (package-installed-p 'package+)
@@ -108,6 +107,8 @@
  ido-create-new-buffer 'always
  ido-file-extensions-order '(".emacs" ".org" ".md")
 
+ vc-follow-symlinks t
+ 
  default-frame-alist
       '( (font . "-CTDB-Fira Code-semibold-normal-normal-*-13-*-*-*-d-0-iso10646-1")
        ))
