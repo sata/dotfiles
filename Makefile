@@ -36,8 +36,8 @@ emacs: emacs-extra-files
 .PHONY: emacs-extra-files
 emacs-extra-files:
 	-@mkdir ~/.emacs.d
-	-@ln -sr early-init.el ~/.emacs.d/early-init.el
-	-@ln -sr emacs-custom.el ~/.emacs-custom.el
+	-@ln -sr early-init.el ~/.emacs.d/.early-init.el
+	-@ln -sr emacs-custom.el ~/.emacs.d/.emacs-custom.el
 
 .PHONY: i3
 i3: rofi greenclip

@@ -5,7 +5,7 @@
 
 (setq
  comp-deferred-compilation t
- custom-file "~/.emacs-custom.el")
+ custom-file "~/.emacs.d/.emacs-custom.el")
 
 (load custom-file)
 
@@ -103,7 +103,6 @@
 (require 'eglot)
 
 ;; projectile
-(projectile-mode +1)
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
@@ -122,11 +121,6 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-cc" 'org-capture)
 
-(setq
- org-agenda-files (list "~/org/")
- org-default-notes-file "~/org/notes.org"
- org-log-done t)
-
 (use-package org-roam
       :ensure t
       :hook
@@ -141,17 +135,17 @@
               (("C-c n i" . org-roam-insert))
               (("C-c n I" . org-roam-insert-immediate))))
 
-(setq org-roam-completion-system 'ido)
-
 ;; LaTeX
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
+(setq
+ TeX-auto-save t
+ TeX-parse-self t
+ reftex-plug-into-AUCTeX t)
+
 (add-hook 'LaTeX-mode-hook 'turn-on-auto-fill)
 (add-hook 'LaTeX-mode-hook (lambda ()
                              (TeX-fold-mode 1)))
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
-(setq reftex-plug-into-AUCTeX t)
 
 (autoload 'markdown-mode "markdown-mode"
    "Major mode for editing Markdown files" t)
