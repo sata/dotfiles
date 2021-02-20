@@ -45,9 +45,14 @@ i3: rofi greenclip
 	@ln -sr i3-config ~/.config/i3/config
 
 .PHONY: redshift
-redshift:
+redshift: redshift-apparmor
 	@mkdir -p ~/.config/redshift
 	@ln -sr redshift.conf ~/.config/redshift/redshift.conf
+
+.PHONY: redshift-apparmor
+redshift-apparmor:
+	@echo "/home/s/sources/dotfiles/redshift.conf r," >> /etc/apparmor.d/local/usr.bin.redshift
+	@apparmor_parser -r /etc/apparmor.d/usr.bin.redshift
 
 .PHONY: rofi
 rofi:
