@@ -34,7 +34,6 @@ alias l='ls -lh'
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
 
-export GO111MODULE=auto
 export GOPATH="$HOME/go"
 
 export EDITOR="emacs -nw"
