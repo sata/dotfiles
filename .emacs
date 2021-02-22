@@ -168,7 +168,7 @@
 
 ;; lsp  --------------------------------------------------------------
 
-(setq lsp-file-watch-threshold 10000)
+(setq lsp-file-watch-threshold 100000)
 
 (use-package lsp-mode
   :ensure t
