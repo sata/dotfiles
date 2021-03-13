@@ -7,7 +7,7 @@ ADR_TOOLS_VERSION = 3.0.0
 all: install
 
 .PHONY: install
-install: ohmyzsh link nobeep asdf erlang elixir phx elixir-ls gotools rust adr-install tf-install
+install: ohmyzsh link nobeep asdf erlang elixir phx elixir-ls gotools rust adr-install tf-install ddcutil-install
 
 .PHONY: deps
 deps:
@@ -17,7 +17,7 @@ deps:
 		inotify-tools tig okular cargo xss-lock playerctl i3 suckless-tools			\
 		texinfo	rofi ripgrep libgccjit0	libjansson-dev libxaw7-dev							\
 		libjansson4 libgccjit-10-dev fonts-firacode	cmake libtool-bin	sqlite3		\
-		shellcheck                                                              \
+		shellcheck ddcutil                                                      \
 
 .PHONY: ohmyzsh
 ohmyzsh:
@@ -139,3 +139,10 @@ tf-install: tfenv-install
 	@tfenv install latest:^0.12
 	@tfenv install latest:^0.13
 	@go get github.com/hashicorp/terraform-ls
+
+.PHONY: ddcutil-install
+ddcutil-install:
+	@sudo -- bash -c 'modprobe i2c-dev && \
+		echo i2c_dev >> /etc/modules-load.d/ddc.conf && \
+	  groupadd i2c && \
+		sudo cp /usr/share/ddcutil/data/45-ddcutil-i2c.rules /etc/udev/rules.d/'

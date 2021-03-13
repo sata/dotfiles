@@ -30,6 +30,12 @@ alias rpi="ssh rpi"
 alias gr="grep -ri"
 alias ll='ls -alh'
 alias l='ls -lh'
+alias sås='cd ~/sources'
+alias bctl='bluetoothctl'
+
+extmonbrt () {
+    ddcutil setvcp 10 $1 10 --display 1
+}
 
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
