@@ -25,6 +25,7 @@
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(kept-new-versions 4)
+ '(lsp-keymap-prefix "s-b")
  '(menu-bar-mode nil)
  '(org-agenda-files '("~/org/"))
  '(org-default-notes-file "~/org/notes.org")
