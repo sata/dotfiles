@@ -11,6 +11,7 @@
     '((horizontal-scroll-bars)
       (font . "-CTDB-Fira Code-semibold-normal-normal-*-13-*-*-*-d-0-iso10646-1")))
  '(delete-old-versions t)
+ '(electric-pair-mode t)
  '(global-company-mode t)
  '(global-display-line-numbers-mode t)
  '(global-font-lock-mode t)
