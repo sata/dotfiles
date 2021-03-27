@@ -37,7 +37,8 @@
     dc = diff --cached
     bisect-fixed = bisect bad
     bisect-unfixed = bisect good
-    pushforcegentle = push --force-with-lease
+    please = push --force-with-lease
+    p = push
     wip = for-each-ref --sort='-authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads
 
 [i18n]
