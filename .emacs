@@ -160,7 +160,7 @@
 (setq
  plantuml-jar-path "/home/s/plantuml.jar"
  plantuml-default-exec-mode 'jar
- plantuml-output-type '"txt")
+ plantuml-output-type '"png")
 
 ;; (eval-after-load 'flycheck
 ;;   '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
