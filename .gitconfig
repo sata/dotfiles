@@ -1,6 +1,6 @@
 [user]
 	name = "Sam Tavakoli"
-	email = "sam@tavakoli.se"
+	email = "gitspam@tavakoli.se"
 [core]
 	editor = emacs -nw
 	autocrlf = input
@@ -30,6 +30,7 @@
 
 [alias]
     a = add
+    au = add -u
     s = status
     lol = log --graph --decorate --pretty=short --all --abbrev-commit
     lw = log -p --word-diff
