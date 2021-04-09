@@ -67,7 +67,8 @@
                   'nix-mode
 
                   'vterm
-                  'org-roam)
+                  'org-roam
+                  'smex)
 
 ;; general config
 (load-theme 'cyberpunk t)
