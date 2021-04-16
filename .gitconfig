@@ -41,6 +41,7 @@
     c = commit
     cam = commit --amend
     wip = for-each-ref --sort='-authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads
+    nuke = clean -xfd
 
 [i18n]
 	logoutputencoding = utf8
