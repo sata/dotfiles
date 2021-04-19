@@ -1,5 +1,3 @@
-# my shameful dotfiles
-
 ## Setup
 
 * `make deps`
