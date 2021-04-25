@@ -119,7 +119,7 @@
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 
 (setq org-todo-keywords
-      '((sequence "TODO" "FEEDBACK" "VERIFY" "|" "INPROGRESS" "|" "DONE" "DELEGATED")))
+      '((sequence "TODO" "FEEDBACK" "VERIFY" "INPROGRESS" "|" "DONE" "DELEGATED")))
 
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
