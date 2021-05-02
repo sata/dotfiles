@@ -68,7 +68,8 @@
 
                   'vterm
                   'org-roam
-                  'smex)
+                  'smex
+                  'deadgrep)
 
 ;; general config
 (load-theme 'cyberpunk t)
@@ -82,6 +83,7 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+(global-set-key (kbd "<f12>") #'deadgrep)
 (use-package smex
   :ensure t
   :bind (("M-x" . smex))
