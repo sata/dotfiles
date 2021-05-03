@@ -104,9 +104,13 @@ gotools: go-k8s
 							github.com/onsi/ginkgo/ginkgo
 
 .PHONY: go-k8s
-go-k8s:
+go-k8s: kind
 	@go get -u 	github.com/minio/mc \
 							github.com/derailed/k9s
+.PHONY: kind
+kind:
+	@cd ~/sources/ && git clone git@github.com:kubernetes-sigs/kind.git && \
+	cd kind && make install
 
 .PHONY: elixir-ls
 elixir-ls:
