@@ -1,6 +1,7 @@
 [user]
 	name = "Sam Tavakoli"
 	email = "gitspam@tavakoli.se"
+	signingkey = 543F55DD80D7F76636F42B777ABBE9749761D44E
 [core]
 	editor = emacs -nw
 	autocrlf = input
@@ -38,7 +39,7 @@
     bisect-unfixed = bisect good
     please = push --force-with-lease
     p = push
-    c = commit
+    c = commit --signoff
     cam = commit --amend
     wip = for-each-ref --sort='-authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads
     nuke = clean -xfd
