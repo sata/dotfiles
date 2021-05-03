@@ -11,13 +11,13 @@ install: ohmyzsh link nobeep asdf erlang elixir phx elixir-ls gotools rust adr-i
 
 .PHONY: deps
 deps:
-	 sudo apt-get -y install \
+	 sudo apt-get -y install																									\
 		zsh procps curl gcc build-essential automake autoconf libncurses5-dev		\
 		libssl-dev flex xsltproc libwxgtk3.0-gtk3-dev libwxgtk3.0-gtk3-0v5 tmux	\
 		inotify-tools tig okular cargo xss-lock playerctl i3 suckless-tools			\
 		texinfo	rofi ripgrep libgccjit0	libjansson-dev libxaw7-dev							\
 		libjansson4 libgccjit-10-dev fonts-firacode	cmake libtool-bin	sqlite3		\
-		shellcheck ddcutil                                                      \
+		shellcheck ddcutil
 
 .PHONY: ohmyzsh
 ohmyzsh:
@@ -97,18 +97,17 @@ phx:
 	mix archive.install --force hex phx_new 1.4.14
 
 .PHONY: gotools
-gotools:
+gotools: go-k8s
 	-@curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | \
 		sh -s -- -b `go env GOPATH`/bin v1.24.0
-	@GO111MODULE=on go get -u golang.org/x/tools/gopls@latest \
-                            github.com/haya14busa/gopkgs/cmd/gopkgs \
-                            github.com/fatih/gomodifytags \
-                            golang.org/x/tools/cmd/guru \
-                            golang.org/x/tools/cmd/godoc \
-                            github.com/onsi/ginkgo/ginkgo
+	@go get -u	golang.org/x/tools/gopls@latest \
+							github.com/onsi/ginkgo/ginkgo
 
-# fuck me, this is why no one likes the BEAM.
-# compare this to go get .../gopls@latest... ;_; <3 beam
+.PHONY: go-k8s
+go-k8s:
+	@go get -u 	github.com/minio/mc \
+							github.com/derailed/k9s
+
 .PHONY: elixir-ls
 elixir-ls:
 	@ if [ ! -d ~/sources/elixir-ls ]; then \

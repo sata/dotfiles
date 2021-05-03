@@ -32,6 +32,7 @@ alias ll='ls -alh'
 alias l='ls -lh'
 alias sås='cd ~/sources'
 alias bctl='bluetoothctl'
+alias k='kubectl'
 
 extmonbrt () {
     ddcutil setvcp 10 $1 10 --display 1
