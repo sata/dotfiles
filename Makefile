@@ -104,13 +104,25 @@ gotools: go-k8s
 							github.com/onsi/ginkgo/ginkgo
 
 .PHONY: go-k8s
-go-k8s: kind
+go-k8s: kind helm flux
 	@go get -u 	github.com/minio/mc \
-							github.com/derailed/k9s
+							github.com/derailed/k9s \
+							sigs.k8s.io/kustomize/kustomize/v3
+
 .PHONY: kind
 kind:
 	@cd ~/sources/ && git clone git@github.com:kubernetes-sigs/kind.git && \
 	cd kind && make install
+
+.PHONY: helm
+helm:
+	@cd ~/sources/ && git clone https://github.com/helm/helm.git && \
+	cd helm && make INSTALL_PATH="`go env GOPATH`/bin" install
+
+.PHONY: flux
+flux:
+	@cd ~/sources/ && git clone https://github.com/fluxcd/flux2.git && \
+	cd flux2 && make build && cp ./bin/flux "`go env GOPATH`/bin"
 
 .PHONY: elixir-ls
 elixir-ls:
