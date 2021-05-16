@@ -9,6 +9,7 @@
 
 (load custom-file)
 
+
 (unless (package-installed-p 'package+)
   (package-install 'package+))
 
@@ -140,6 +141,11 @@
               :map org-mode-map
               (("C-c n i" . org-roam-insert))
               (("C-c n I" . org-roam-insert-immediate))))
+
+;; org-reveal
+(setq ox-reveal "~/sources/org-reveal/ox-reveal.el")
+(load ox-reveal)
+(setq org-reveal-root "file:///home/s/sources/reveal.js")
 
 ;; LaTeX
 (setq
