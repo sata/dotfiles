@@ -40,6 +40,7 @@
     please = push --force-with-lease
     p = push
     c = commit --signoff
+    can = commit --amend --no-edit
     cam = commit --amend
     wip = for-each-ref --sort='-authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads
     nuke = clean -xfd
