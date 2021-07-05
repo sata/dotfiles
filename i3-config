@@ -179,7 +179,7 @@ bindsym $mod+n exec rofi -modi "clipboard:greenclip print" -show clipboard -run-
 bindsym $mod+q exec rofi -show window
 
 # Screenshot command
-bindsym $mod+p exec "gnome-screenshot -a -f ~/downloads/screenshot-$(date +%Y-%m-%d.%H:%M:%S).png"
+bindsym $mod+Shift+p exec "gnome-screenshot -a -f ~/downloads/screenshot-$(date +%Y-%m-%d.%H:%M:%S).png"
 
 # workspace navigation
 bindsym $mod+Shift+i workspace prev

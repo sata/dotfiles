@@ -26,7 +26,7 @@
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(kept-new-versions 4)
- '(lsp-keymap-prefix "s-b")
+ '(lsp-keymap-prefix "s-p")
  '(menu-bar-mode nil)
  '(org-adapt-indentation t)
  '(org-agenda-files '("~/org/"))

@@ -2,13 +2,11 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
 
-
 (setq
  comp-deferred-compilation t
  custom-file "~/.emacs.d/.emacs-custom.el")
 
 (load custom-file)
-
 
 (unless (package-installed-p 'package+)
   (package-install 'package+))
