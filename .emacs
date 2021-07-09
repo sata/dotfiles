@@ -67,7 +67,8 @@
 
                   'org-roam
                   'smex
-                  'deadgrep)
+                  'deadgrep
+                  'which-key)
 
 ;; general config
 (load-theme 'cyberpunk t)
@@ -83,9 +84,11 @@
 
 (global-set-key (kbd "<f12>") #'deadgrep)
 (use-package smex
-  :ensure t
   :bind (("M-x" . smex))
   :config (smex-initialize))
+
+(use-package which-key
+  :config(which-key-mode))
 
 (require 'package+)
 (require 'nyan-mode)
