@@ -13,8 +13,8 @@
 
 (package-manifest 'magit
                   'cl-lib
-		              'cyberpunk-theme
-		              'flycheck
+                  'cyberpunk-theme
+                  'flycheck
                   'company
                   'nyan-mode
                   'ssh
@@ -33,11 +33,10 @@
                   'flycheck-golangci-lint
 
                   'web-mode
-		              'package+
+                  'package+
 
                   'lsp-mode
-		              'lsp-ui
-                  'company-lsp
+                  'lsp-ui
                   'lsp-treemacs
                   'helm-lsp
                   'use-package
@@ -125,19 +124,19 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-cc" 'org-capture)
 
+(setq org-roam-v2-ack t)
+(setq org-roam-completion-system 'ido)
+
 (use-package org-roam
       :ensure t
-      :hook
-      (after-init . org-roam-mode)
       :custom
       (org-roam-directory "~/org/roam")
-      :bind (:map org-roam-mode-map
-              (("C-c n l" . org-roam)
-               ("C-c n f" . org-roam-find-file)
-               ("C-c n g" . org-roam-graph))
-              :map org-mode-map
-              (("C-c n i" . org-roam-insert))
-              (("C-c n I" . org-roam-insert-immediate))))
+      :bind (("C-c n l" . org-roam-buffer-toggle)
+             ("C-c n f" . org-roam-node-find)
+             ("C-c n g" . org-roam-graph)
+             ("C-c n i" . org-roam-node-insert))
+      :config
+      (org-roam-setup))
 
 ;; org-reveal
 (setq ox-reveal "~/sources/org-reveal/ox-reveal.el")
@@ -177,7 +176,7 @@
 
 ;; lsp  --------------------------------------------------------------
 
-(setq lsp-file-watch-threshold 100000)
+(setq lsp-file-watch-threshold 50000)
 
 (use-package lsp-mode
   :ensure t
@@ -206,11 +205,11 @@
 
 (setq company-global-modes '(not org-mode not shell-mode eshell-mode not debugger-mode))
 
-;; company-lsp integrates company mode completion with lsp-mode.
-;; completion-at-point also works out of the box but doesn't support snippets.
-(use-package company-lsp
-  :ensure t
-  :commands company-lsp)
+(use-package company
+  :hook (scala-mode . company-mode)
+  :config
+  (setq lsp-completion-provider :capf))
+
 
 (setq lsp-ui-flycheck-enable 1)
 
