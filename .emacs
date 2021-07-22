@@ -42,6 +42,7 @@
                   'use-package
                   'yasnippet
                   'eglot
+                  'dap-mode
 
                   'yaml-mode
 
@@ -176,12 +177,18 @@
 
 ;; lsp  --------------------------------------------------------------
 
-(setq lsp-file-watch-threshold 50000)
-
+(setq lsp-file-watch-threshold 10000)
+(setq lsp-enable-file-watchers nil)
+(setq debug-on-error t)
 (use-package lsp-mode
+  :init
+  (setq lsp-keymap-prefix "s-p")
   :ensure t
-  :commands (lsp lsp-deferred)
-  :hook (go-mode . lsp-deferred))
+  :hook (
+         (go-mode . lsp-deferred)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp lsp-deferred)
+
 
 ;; Set up before-save hooks to format buffer and add/delete imports.
 ;; Make sure you don't have other gofmt/goimports hooks enabled.
@@ -222,6 +229,9 @@
 (use-package flycheck-golangci-lint
   :ensure t
   :hook (go-mode . flycheck-golangci-lint-setup))
+
+(use-package dap-mode)
+(use-package dap-go)
 
 ;; elixir related
 (add-hook 'elixir-mode-hook 'eglot-ensure)

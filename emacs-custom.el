@@ -26,7 +26,6 @@
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(kept-new-versions 4)
- '(lsp-keymap-prefix "s-p")
  '(menu-bar-mode nil)
  '(org-adapt-indentation t)
  '(org-agenda-files '("~/org/"))
@@ -34,7 +33,7 @@
  '(org-hide-leading-stars t)
  '(org-log-done 'time)
  '(org-odd-levels-only nil)
- '(org-roam-completion-system 'ido)
+ '(org-roam-completion-system 'ido t)
  '(package-selected-packages
    '(deadpgrep smex cargo cc-mode ccls cl-lib company company-go company-lsp cyberpunk-theme eglot elixir-mode exunit flycheck flycheck-golangci-lint flycheck-plantuml flycheck-rust go-mode go-projectile go-tag gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui lua-mode magit markdown-mode nix-mode nyan-mode org-roam package+ plantuml-mode projectile python-mode ruby-mode rust-mode ssh terraform-mode toml-mode use-package vterm web-mode yaml-mode yasnippet))
  '(projectile-mode t nil (projectile))
