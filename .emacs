@@ -138,7 +138,7 @@
         '(("d" "default" entry
            "* %?"
            :if-new (file+head "%<%Y-%m-%d>.org"
-                              "#+title: %<%Y-%m-%d>\n*Tasks:\n- [ ] "))))
+                              "#+title: %<%Y-%m-%d>\n\n* Tasks:\n  - [ ] "))))
        )
 
       :bind (("C-c n l" . org-roam-buffer-toggle)
