@@ -131,11 +131,25 @@
 (use-package org-roam
       :ensure t
       :custom
-      (org-roam-directory "~/org/roam")
+      (
+       (org-roam-directory "~/org/roam")
+       (org-roam-dailies-directory "daily/")
+       (org-roam-dailies-capture-templates
+        '(("d" "default" entry
+           "* %?"
+           :if-new (file+head "%<%Y-%m-%d>.org"
+                              "#+title: %<%Y-%m-%d>\n*Tasks:\n- [ ] "))))
+       )
+
       :bind (("C-c n l" . org-roam-buffer-toggle)
              ("C-c n f" . org-roam-node-find)
              ("C-c n g" . org-roam-graph)
-             ("C-c n i" . org-roam-node-insert))
+             ("C-c n i" . org-roam-node-insert)
+             ("C-c d t" . org-roam-dailies-goto-today)
+             ("C-c d y" . org-roam-dailies-goto-yesterday)
+             ("C-C d p" . org-roam-dailies-goto-previous-note)
+             ("C-C d n" . org-roam-dailies-goto-next-note)
+             )
       :config
       (org-roam-setup))
 
