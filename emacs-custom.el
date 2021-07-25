@@ -7,6 +7,7 @@
  '(backup-by-copying t)
  '(backup-directory-alist '(("." . "~/.emacs.d/saves")))
  '(c-basic-offset 2)
+ '(column-number-mode t)
  '(default-frame-alist
     '((horizontal-scroll-bars)
       (font . "-CTDB-Fira Code-semibold-normal-normal-*-13-*-*-*-d-0-iso10646-1")))

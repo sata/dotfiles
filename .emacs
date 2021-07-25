@@ -193,7 +193,7 @@
 
 (setq lsp-file-watch-threshold 10000)
 (setq lsp-enable-file-watchers nil)
-(setq debug-on-error t)
+(setq debug-on-error nil)
 (use-package lsp-mode
   :init
   (setq lsp-keymap-prefix "s-p")
