@@ -7,6 +7,7 @@ exec_always --no-startup-id sleep 1; xset s on
 exec_always --no-startup-id sleep 1; xset s 180 120
 
 exec --no-startup-id xss-lock -l -- i3lock -i ~/documents/screensaver.png -t -e -f -n
+exec --no-startup-id redshift -c ~/.config/redshift/redshift.conf
 exec --no-startup-id nm-applet
 
 set $refresh_i3status killall -SIGUSR1 i3status
