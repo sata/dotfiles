@@ -68,7 +68,9 @@
                   'org-roam
                   'smex
                   'deadgrep
-                  'which-key)
+                  'which-key
+                  'simple-httpd
+                  'websocket)
 
 ;; general config
 (load-theme 'cyberpunk t)
@@ -126,14 +128,14 @@
 (define-key global-map "\C-cc" 'org-capture)
 
 (setq org-roam-v2-ack t)
-(setq org-roam-completion-system 'ido)
-
+(setq org-roam-directory "~/org/roam")
 (use-package org-roam
       :ensure t
       :custom
       (
-       (org-roam-directory "~/org/roam")
        (org-roam-dailies-directory "daily/")
+       (org-roam-v2-ack t)
+       (org-roam-completion-system 'ido)
        (org-roam-dailies-capture-templates
         '(("d" "default" entry
            "* %?"
@@ -152,6 +154,18 @@
              )
       :config
       (org-roam-setup))
+
+(add-to-list 'load-path "~/.emacs.d/slask/org-roam-ui")
+(load-library "org-roam-ui")
+(use-package org-roam-ui
+    :after org-roam
+    :custom
+    (
+     (org-roam-ui-sync-theme t)
+     (org-roam-ui-follow t)
+     (org-roam-ui-update-on-save t)
+     (org-roam-ui-open-on-start t))
+    )
 
 ;; org-reveal
 (setq ox-reveal "~/sources/org-reveal/ox-reveal.el")
@@ -192,7 +206,7 @@
 ;; lsp  --------------------------------------------------------------
 
 (setq lsp-file-watch-threshold 10000)
-(setq lsp-enable-file-watchers nil)
+(setq lsp-enable-file-watchers t)
 (setq debug-on-error nil)
 (use-package lsp-mode
   :init
