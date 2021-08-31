@@ -2,7 +2,7 @@ export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="robbyrussell"
 CASE_SENSITIVE="true"
-plugins=(git ssh-agent)
+plugins=(git ssh-agent zsh-autosuggestions)
 
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:/usr/local/bin:$HOME/.local/bin"
