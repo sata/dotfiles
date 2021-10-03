@@ -100,8 +100,9 @@ phx:
 gotools: go-k8s
 	-@curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | \
 		sh -s -- -b `go env GOPATH`/bin v1.24.0
-	@go get -u	golang.org/x/tools/gopls@latest \
-							github.com/onsi/ginkgo/ginkgo
+	@go get golang.org/x/tools/gopls@latest \
+					github.com/onsi/ginkgo/ginkgo
+	@go install github.com/go-delve/delve/cmd/dlv@latest
 
 .PHONY: go-k8s
 go-k8s: kind helm flux

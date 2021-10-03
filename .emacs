@@ -135,7 +135,9 @@
       (
        (org-roam-dailies-directory "daily/")
        (org-roam-v2-ack t)
-       (org-roam-completion-system 'ido)
+       ;; tags display don't work nicely with ido, i'm not using it
+       ;; either so lets just display title
+       (org-roam-node-display-template "${title}")
        (org-roam-dailies-capture-templates
         '(("d" "default" entry
            "* %?"
