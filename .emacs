@@ -149,6 +149,7 @@
              ("C-c n f" . org-roam-node-find)
              ("C-c n g" . org-roam-graph)
              ("C-c n i" . org-roam-node-insert)
+             ("C-c d r" . org-roam-dailies-goto-tomorrow)
              ("C-c d t" . org-roam-dailies-goto-today)
              ("C-c d y" . org-roam-dailies-goto-yesterday)
              ("C-C d p" . org-roam-dailies-goto-previous-note)
