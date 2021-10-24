@@ -13,7 +13,7 @@ install: ohmyzsh link nobeep asdf erlang elixir phx elixir-ls gotools rust adr-i
 .PHONY: rigup
 rigup:
 	@sudo apt-get install -y ansible
-	@ansible-playbook books/new.yml -b -K
+	@ansible-playbook -c local -i localhost, -b -K -e ansible_user=s books/new.yml
 
 .PHONY: ohmyzsh
 ohmyzsh:

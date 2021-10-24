@@ -1,6 +1,5 @@
 ---
-- hosts: localhost
-  connection: local
+- hosts: all
   tasks:
     - name: stuff I need
       become: true
@@ -29,6 +28,8 @@
           - ddcutil
           - ansible
           - vagrant
+          - vagrant-libvirt
+          - libvirt-daemon-system
 
           - cargo
 
@@ -49,4 +50,10 @@
           - xsltproc
           - libwxgtk3.0-gtk3-dev
           - libwxgtk3.0-gtk3-0v5
+    - name: adding "{{ ansible_user }}" to libvirt
+      become: yes
+      user:
+        name: "{{ ansible_user }}"
+        groups: libvirt
+        append: yes
     - debug: var=out.stdout_lines
