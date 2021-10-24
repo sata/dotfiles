@@ -1,0 +1,52 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: stuff I need
+      become: true
+      apt:
+        update_cache: yes
+        pkg:
+          - zsh
+          - tmux
+          - procps
+          - curl
+          - libncurses5-dev
+          - inotify-tools
+          - tig
+          - xss-lock
+          - okular
+          - playerctl
+          - i3
+          - suckless-tools
+          - texinfo
+          - rofi
+          - ripgrep
+          - fonts-firacode
+          - libtool-bin
+          - sqlite3
+          - shellcheck
+          - ddcutil
+          - ansible
+          - vagrant
+
+          - cargo
+
+          - gcc
+          - cmake
+          - build-essential
+          - automake
+          - autoconf
+          - make
+
+          - libgccjit0
+          - libjansson-dev
+          - libxaw7-dev
+          - libjansson4
+          - libgccjit-10-dev
+          - libssl-dev
+          - flex
+          - xsltproc
+          - libwxgtk3.0-gtk3-dev
+          - libwxgtk3.0-gtk3-0v5
+    - debug: var=out.stdout_lines

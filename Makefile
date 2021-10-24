@@ -9,15 +9,11 @@ all: install
 .PHONY: install
 install: ohmyzsh link nobeep asdf erlang elixir phx elixir-ls gotools rust adr-install tf-install ddcutil-install
 
-.PHONY: deps
-deps:
-	 sudo apt-get -y install																									\
-		zsh procps curl gcc build-essential automake autoconf libncurses5-dev		\
-		libssl-dev flex xsltproc libwxgtk3.0-gtk3-dev libwxgtk3.0-gtk3-0v5 tmux	\
-		inotify-tools tig okular cargo xss-lock playerctl i3 suckless-tools			\
-		texinfo	rofi ripgrep libgccjit0	libjansson-dev libxaw7-dev							\
-		libjansson4 libgccjit-10-dev fonts-firacode	cmake libtool-bin	sqlite3		\
-		shellcheck ddcutil
+
+.PHONY: rigup
+rigup:
+	@sudo apt-get install -y ansible
+	@ansible-playbook books/new.yml -b -K
 
 .PHONY: ohmyzsh
 ohmyzsh:
