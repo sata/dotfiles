@@ -39,6 +39,7 @@
           - automake
           - autoconf
           - make
+          - git
 
           - libgccjit0
           - libjansson-dev
@@ -56,4 +57,28 @@
         name: "{{ ansible_user }}"
         groups: libvirt
         append: yes
+    - file:
+        path: ~/sources/
+        state: directory
+        mode: '0755'
+    - git:
+        repo: 'https://github.com/sata/dotfiles.git'
+        dest: ~/sources/dotfiles
+    - make:
+        chdir: ~/sources/dotfiles
+        target: ohmyzsh
+    - make:
+        chdir: ~/sources/dotfiles
+        target: link
+    - git:
+        repo: git://git.sv.gnu.org/emacs.git
+        dest: ~/sources/emacs
+        version: feature/native-comp
+    - make:
+        chdir: ~/sources/emacs
+        jobs: 2
+    - become: yes
+      make:
+        chdir: ~/sources/emacs
+        target: install
     - debug: var=out.stdout_lines

@@ -22,12 +22,12 @@ ohmyzsh:
 .PHONY: emacs
 emacs:
 	-@git clone git://git.sv.gnu.org/emacs.git ~/sources/emacs
-	cd ~/sources/emacs && \
+	@cd ~/sources/emacs && \
 	git pull && git checkout feature/native-comp && \
 	./autogen.sh && \
 	./configure --with-nativecomp --with-json  && \
 	make -j `nproc --ignore 1` && \
-	sudo make install
+	sudo $(MAKE) install
 
 .PHONY: i3
 i3: rofi greenclip
