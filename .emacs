@@ -29,6 +29,9 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+(use-package deadgrep
+  :ensure t)
+
 (use-package magit
   :ensure t)
 
@@ -148,37 +151,6 @@
       :config
       (org-roam-setup))
 
-;; configuring org-roam-ui
-;; hack, it's not on ELPA yet
-(add-to-list 'load-path "~/.emacs.d/slask/org-roam-ui")
-
-(use-package simple-httpd
-  :ensure t)
-
-(use-package websocket
-  :ensure t)
-
-
-(use-package org-roam-ui
-  :after org-roam
-  :init
-  (setq org-roam-ui-sync-theme t)
-  (setq org-roam-ui-follow t)
-  (setq org-roam-ui-update-on-save t)
-  (setq org-roam-ui-open-on-start t)
-  :config
-  (load-library "org-roam-ui"))
-
-;; only care about presentations when I've got it cloned
-;; helps vagrant setups
-(setq ox-reveal "~/sources/org-reveal/ox-reveal.el")
-(when (file-exists-p ox-reveal)
-      (load "~/sources/org-reveal/ox-reveal.el")
-      (use-package ox-reveal
-        :init
-        (setq org-reveal-root "file:///home/s/sources/reveal.js")
-        :config))
-
 (use-package tex-mode
   :config
   (setq TeX-auto-save t)
@@ -244,3 +216,35 @@
   (let ((indent-tabs-mode nil))
     ad-do-it))
 (ad-activate 'align-regexp)
+
+;; -------
+;; hack
+;; stuff I used that are not on ELPA, but only matter on a fully blown
+;; workstation, not Vagrant
+(setq org-roam-ui-path  "~/.emacs.d/slask/org-roam-ui")
+(when (file-exists-p org-roam-ui-path)
+  (add-to-list 'load-path "~/.emacs.d/slask/org-roam-ui")
+  (use-package simple-httpd
+    :ensure t)
+  (use-package websocket
+    :ensure t)
+  (use-package org-roam-ui
+    :after org-roam
+    :init
+    (setq org-roam-ui-sync-theme t)
+    (setq org-roam-ui-follow t)
+    (setq org-roam-ui-update-on-save t)
+    (setq org-roam-ui-open-on-start t)
+    :config
+    (load-library "org-roam-ui"))
+  )
+
+;; only care about presentations when I've got it cloned
+;; helps vagrant setups
+(setq ox-reveal-path "~/sources/org-reveal/ox-reveal.el")
+(when (file-exists-p ox-reveal-path)
+      (load ox-reveal-path)
+      (use-package ox-reveal
+        :init
+        (setq org-reveal-root "file:///home/s/sources/reveal.js")
+        :config))

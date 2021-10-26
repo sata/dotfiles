@@ -20,7 +20,7 @@ ohmyzsh:
 	@sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 .PHONY: emacs
-emacs: emacs-extra-files
+emacs:
 	-@git clone git://git.sv.gnu.org/emacs.git ~/sources/emacs
 	cd ~/sources/emacs && \
 	git pull && git checkout feature/native-comp && \
@@ -28,12 +28,6 @@ emacs: emacs-extra-files
 	./configure --with-nativecomp --with-json  && \
 	make -j `nproc --ignore 1` && \
 	sudo make install
-
-.PHONY: emacs-extra-files
-emacs-extra-files:
-	-@mkdir ~/.emacs.d
-	-@ln -sr early-init.el ~/.emacs.d/.early-init.el
-	-@ln -sr emacs-custom.el ~/.emacs.d/.emacs-custom.el
 
 .PHONY: i3
 i3: rofi greenclip
@@ -65,10 +59,18 @@ nobeep:
 	@sudo bash -c 'echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf'
 
 .PHONY: link
-link:
+link: emacs-links
+	@rm ~/.profile
 	@for dotfile in $(DOTFILES); do \
 		ln -sr $$dotfile ~/$$dotfile; \
 	done
+
+.PHONY: emacs-links
+emacs-links:
+	-@mkdir ~/.emacs.d
+	-@ln -sr early-init.el ~/.emacs.d/.early-init.el
+	-@ln -sr emacs-custom.el ~/.emacs.d/.emacs-custom.el
+
 
 .PHONY: asdf
 asdf:
