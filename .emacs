@@ -81,6 +81,7 @@
   (setq debug-on-error nil)
   :hook (
          (go-mode . lsp-deferred)
+         (yaml-mode . lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration))
   :config
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
@@ -109,6 +110,10 @@
   :hook (scala-mode . company-mode)
   :config
   (setq lsp-completion-provider :capf))
+
+(use-package k8s-mode
+  :ensure t
+  :hook (k8s-mode . yas-minor-mode))
 
 ;; Optional - provides snippet support.
 (use-package yasnippet

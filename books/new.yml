@@ -71,6 +71,8 @@
     - make:
         chdir: ~/sources/dotfiles
         target: link
+    - shell: . ~/.nvm/nvm.sh && nvm install --lts
+    - shell: . ~/.nvm/nvm.sh && npm install -g yaml-language-server
     - git:
         repo: git://git.sv.gnu.org/emacs.git
         dest: ~/sources/emacs
