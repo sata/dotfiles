@@ -12,6 +12,7 @@
           - curl
           - libncurses5-dev
           - inotify-tools
+          - vim
           - tig
           - xss-lock
           - okular
