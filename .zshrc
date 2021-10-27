@@ -40,7 +40,6 @@ extmonbrt () {
 }
 
 . $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
 
 export GOPATH="$HOME/go"
 
