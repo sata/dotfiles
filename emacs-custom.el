@@ -41,7 +41,6 @@
  '(scroll-bar-mode nil)
  '(show-paren-delay 0)
  '(show-paren-mode t)
- '(show-trailing-whitespace t)
  '(standard-indent 2)
  '(tab-width 2)
  '(tool-bar-mode nil)

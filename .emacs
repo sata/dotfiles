@@ -29,6 +29,17 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;; disable trailing whitespace where it's annoying
+(setq show-trailing-whitespace t)
+(dolist (hook '(term-mode-hook
+                compilation-mode-hook
+                minibuffer-setup-hook))
+  (add-hook hook
+            (lambda () (setq show-trailing-whitespace nil))))
+
+(use-package vterm
+  :ensure t)
+
 (use-package deadgrep
   :ensure t)
 
