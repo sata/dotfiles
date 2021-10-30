@@ -73,15 +73,10 @@
         target: link
     - shell: . ~/.nvm/nvm.sh && nvm install --lts
     - shell: . ~/.nvm/nvm.sh && npm install -g yaml-language-server
+      args:
+        executable: /bin/bash
     - git:
         repo: git://git.sv.gnu.org/emacs.git
         dest: ~/sources/emacs
-        version: feature/native-comp
-    - make:
-        chdir: ~/sources/emacs
-        jobs: 2
-    - become: yes
-      make:
-        chdir: ~/sources/emacs
-        target: install
+    - include: build_emacs_tasks.yml
     - debug: var=out.stdout_lines

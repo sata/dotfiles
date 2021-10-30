@@ -13,7 +13,7 @@ install: ohmyzsh link nobeep asdf erlang elixir phx elixir-ls gotools rust adr-i
 .PHONY: rigup
 rigup:
 	@sudo apt-get install -y ansible
-	@ansible-playbook -c local -i localhost, -b -K -e ansible_user=s books/new.yml
+	@ansible-playbook -c local -i localhost, -K -e ansible_user=s books/new.yml
 
 .PHONY: ohmyzsh
 ohmyzsh:
@@ -21,13 +21,11 @@ ohmyzsh:
 
 .PHONY: emacs
 emacs:
-	-@git clone git://git.sv.gnu.org/emacs.git ~/sources/emacs
-	@cd ~/sources/emacs && \
-	git pull && git checkout feature/native-comp && \
-	./autogen.sh && \
-	./configure --with-nativecomp --with-json  && \
-	make -j `nproc --ignore 1` && \
-	sudo $(MAKE) install
+	@ansible-playbook -c local -i localhost, -K books/build_emacs.yml
+
+.PHONY: go
+go:
+	@ansible-playbook -c local -i localhost, books/go.yml
 
 .PHONY: i3
 i3: rofi greenclip
@@ -93,25 +91,6 @@ elixir:
 phx:
 	mix local.hex --force
 	mix archive.install --force hex phx_new 1.4.14
-
-.PHONY: gotools
-gotools: go-k8s
-	-@curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | \
-		sh -s -- -b `go env GOPATH`/bin v1.24.0
-	@go get golang.org/x/tools/gopls@latest \
-					github.com/onsi/ginkgo/ginkgo
-	@go install github.com/go-delve/delve/cmd/dlv@latest
-
-.PHONY: go-k8s
-go-k8s: kind helm flux
-	@go get -u 	github.com/minio/mc \
-							github.com/derailed/k9s \
-							sigs.k8s.io/kustomize/kustomize/v3
-
-.PHONY: kind
-kind:
-	@cd ~/sources/ && git clone git@github.com:kubernetes-sigs/kind.git && \
-	cd kind && make install
 
 .PHONY: helm
 helm:

@@ -34,6 +34,7 @@ alias sås='cd ~/sources'
 alias bctl='bluetoothctl'
 alias k='kubectl'
 alias t='i3-sensible-terminal&'
+alias dotfiles='cd ~/sources/dotfiles'
 
 extmonbrt () {
     ddcutil setvcp 10 $1 10 --display 1

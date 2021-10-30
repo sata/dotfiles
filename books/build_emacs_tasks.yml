@@ -1,0 +1,28 @@
+- name: "pull"
+  shell:
+    cmd: git pull
+    chdir: &emacs_src ~/sources/emacs
+- name: "clean repo"
+  shell:
+    cmd: git clean -xfd
+    chdir: *emacs_src
+- name: "autogen"
+  shell:
+    cmd: ./autogen.sh
+    chdir: *emacs_src
+- name: "configure"
+  shell:
+    cmd: ./configure --with-native-compilation --with-json
+    chdir: *emacs_src
+- name: "build ze magic"
+  shell:
+    cmd: make -j$(nproc --ignore 1)
+    chdir: *emacs_src
+    register: compile
+- debug: msg={{ compile.stdout }}
+- name: "install the gold"
+  become: yes
+  shell:
+    cmd: make install
+    chdir: *emacs_src
+    register: install

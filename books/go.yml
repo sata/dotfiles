@@ -1,0 +1,4 @@
+---
+- hosts: all
+  tasks:
+    - include: go_tasks.yml
