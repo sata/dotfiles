@@ -18,9 +18,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
-
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
+bindsym XF86AudioStop exec --no-startup-id playerctl play-pause
 
 bindsym $mod+Return exec i3-sensible-terminal
 
@@ -66,6 +64,12 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+Shift+n [class="Emacs"] scratchpad show
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
