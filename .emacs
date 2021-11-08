@@ -43,6 +43,9 @@
 (use-package deadgrep
   :ensure t)
 
+(use-package anzu
+  :ensure t)
+
 (use-package magit
   :ensure t)
 
