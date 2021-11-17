@@ -16,3 +16,6 @@
 - name: kind
   shell:
     cmd: go install sigs.k8s.io/kind@latest
+- name: terraform-ls
+  shell:
+    cmd: go install github.com/hashicorp/terraform-ls@latest

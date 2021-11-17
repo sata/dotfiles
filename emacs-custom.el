@@ -9,8 +9,8 @@
  '(c-basic-offset 2)
  '(column-number-mode t)
  '(default-frame-alist
-    '((horizontal-scroll-bars)
-      (font . "-CTDB-Fira Code-semibold-normal-normal-*-14-*-*-*-d-0-iso10646-1")))
+   '((horizontal-scroll-bars)
+     (font . "-CTDB-Fira Code-semibold-normal-normal-*-14-*-*-*-d-0-iso10646-1")))
  '(delete-old-versions t)
  '(electric-pair-mode t)
  '(global-company-mode t)
@@ -35,7 +35,7 @@
  '(org-log-done 'time)
  '(org-odd-levels-only nil)
  '(package-selected-packages
-   '(k8s-mode deadgrep websocket simple-httpd dap-mode which-key yaml plantuml markdown latex org-roam-ui dap-go cyberpunk deadpgrep smex cargo cc-mode ccls cl-lib company company-go company-lsp cyberpunk-theme eglot elixir-mode exunit flycheck flycheck-golangci-lint flycheck-plantuml flycheck-rust go-mode go-projectile go-tag gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui lua-mode magit markdown-mode nix-mode nyan-mode org-roam package+ plantuml-mode projectile python-mode ruby-mode rust-mode ssh terraform-mode toml-mode use-package vterm web-mode yaml-mode yasnippet))
+   '(neotree k8s-mode deadgrep websocket simple-httpd dap-mode which-key yaml plantuml markdown latex org-roam-ui dap-go cyberpunk deadpgrep smex cargo cc-mode ccls cl-lib company company-go company-lsp cyberpunk-theme eglot elixir-mode exunit flycheck flycheck-golangci-lint flycheck-plantuml flycheck-rust go-mode go-projectile go-tag gotest helm-lsp highlight-symbol lsp-mode lsp-treemacs lsp-ui lua-mode magit markdown-mode nix-mode nyan-mode org-roam package+ plantuml-mode projectile python-mode ruby-mode rust-mode ssh terraform-mode toml-mode use-package vterm web-mode yaml-mode yasnippet))
  '(projectile-mode t nil (projectile))
  '(ring-bell-function 'ignore)
  '(scroll-bar-mode nil)

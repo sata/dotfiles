@@ -25,7 +25,6 @@
 (global-set-key "\C-w" 'clipboard-kill-region)
 (global-set-key "\M-w" 'clipboard-kill-ring-save)
 (global-set-key "\C-y" 'clipboard-yank)
-(global-set-key (kbd "<f12>") #'deadgrep)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -37,10 +36,17 @@
   (add-hook hook
             (lambda () (setq show-trailing-whitespace nil))))
 
+(use-package neotree
+  :init
+  (global-set-key [f12] 'neotree-toggle)
+  :ensure t)
+
 (use-package vterm
   :ensure t)
 
 (use-package deadgrep
+  :init
+  (global-set-key [f11] 'deadgrep)
   :ensure t)
 
 (use-package anzu
@@ -50,6 +56,9 @@
   :ensure t)
 
 (use-package yaml-mode
+  :ensure t)
+
+(use-package terraform-mode
   :ensure t)
 
 (use-package smex
@@ -93,9 +102,11 @@
   (setq lsp-file-watch-threshold 10000)
   (setq lsp-enable-file-watchers t)
   (setq debug-on-error nil)
+  (setq lsp-terraform-server `(,"terraform-ls" "serve"))
   :hook (
          (go-mode . lsp-deferred)
          (yaml-mode . lsp-deferred)
+         (terraform-mode . lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration))
   :config
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
