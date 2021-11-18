@@ -1,8 +1,8 @@
 (require 'package)
 
-(add-to-list 'package-archives '("elpa" . "http://elpa.gnu.org/packages/"))
+(add-to-list 'package-archives '("elpa"  . "http://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
+(add-to-list 'package-archives '("org"   . "https://orgmode.org/elpa/"))
 
 ;; only do this for bootstrapping a new environment
 (unless (file-exists-p "~/.emacs.d/elpa")
@@ -17,10 +17,7 @@
 
 (load custom-file)
 
-(use-package cyberpunk-theme
-  :ensure t
-  :config
-  (load-theme 'cyberpunk t))
+(add-to-list 'auto-mode-alist '("\\.common\\'" . makefile-mode))
 
 (global-set-key "\C-w" 'clipboard-kill-region)
 (global-set-key "\M-w" 'clipboard-kill-ring-save)
@@ -36,18 +33,23 @@
   (add-hook hook
             (lambda () (setq show-trailing-whitespace nil))))
 
+(use-package cyberpunk-theme
+  :ensure t
+  :config
+  (load-theme 'cyberpunk t))
+
 (use-package neotree
+  :ensure t
   :init
-  (global-set-key [f12] 'neotree-toggle)
-  :ensure t)
+  (global-set-key [f12] 'neotree-toggle))
 
 (use-package vterm
   :ensure t)
 
 (use-package deadgrep
+  :ensure t
   :init
-  (global-set-key [f11] 'deadgrep)
-  :ensure t)
+  (global-set-key [f11] 'deadgrep))
 
 (use-package anzu
   :ensure t)
@@ -55,7 +57,7 @@
 (use-package magit
   :ensure t)
 
-(use-package yaml-mode
+(use-package yaml
   :ensure t)
 
 (use-package terraform-mode
@@ -104,10 +106,10 @@
   (setq debug-on-error nil)
   (setq lsp-terraform-server `(,"terraform-ls" "serve"))
   :hook (
-         (go-mode . lsp-deferred)
-         (yaml-mode . lsp-deferred)
+         (go-mode        . lsp-deferred)
+         (yaml-mode      . lsp-deferred)
          (terraform-mode . lsp-deferred)
-         (lsp-mode . lsp-enable-which-key-integration))
+         (lsp-mode       . lsp-enable-which-key-integration))
   :config
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
   (add-hook 'before-save-hook #'lsp-organize-imports t t)
@@ -197,10 +199,9 @@
   :config
   (autoload 'markdown-mode "markdown-mode"
     "Major mode for editing Markdown files" t)
-  (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+  (add-to-list 'auto-mode-alist '("\\.text\\'"     . markdown-mode))
   (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-  (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-  )
+  (add-to-list 'auto-mode-alist '("\\.md\\'"       . markdown-mode)))
 
 (use-package plantuml-mode
   :ensure t
@@ -210,7 +211,7 @@
   (setq plantuml-output-type '"png")
   :config
   (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
-  (add-to-list 'auto-mode-alist '("\\.puml\\'" . plantuml-mode)))
+  (add-to-list 'auto-mode-alist '("\\.puml\\'"     . plantuml-mode)))
 
 (use-package ccls
   :ensure t
@@ -235,10 +236,6 @@
   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
   (add-hook 'before-save-hook (lambda () (when (eq 'rust-mode major-mode)
                                            (lsp-format-buffer)))))
-
-(use-package yaml
-  :ensure t)
-
 ;; nicked from https://stackoverflow.com/questions/915985/
 ;; Align with spaces only
 (defadvice align-regexp (around align-regexp-with-spaces)
