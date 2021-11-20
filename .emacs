@@ -43,6 +43,10 @@
   :init
   (global-set-key [f12] 'neotree-toggle))
 
+(use-package nix-mode
+  :ensure t
+  :mode "\\.nix\\'")
+
 (use-package vterm
   :ensure t)
 

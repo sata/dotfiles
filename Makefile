@@ -4,6 +4,8 @@ ELIXIR_VERSION = v1.10.2
 PHOENIX_VERSION = 1.4.14
 ADR_TOOLS_VERSION = 3.0.0
 
+NIX_VERSION = 2.4
+
 all: install
 
 .PHONY: install
@@ -26,6 +28,10 @@ emacs:
 .PHONY: go
 go:
 	@ansible-playbook -c local -i localhost, books/go.yml
+
+.PHONY: nix
+nix:
+	@ansible-playbook -c local -i localhost, books/nix.yml -e nix_version=${NIX_VERSION}
 
 .PHONY: i3
 i3: rofi greenclip
@@ -57,7 +63,7 @@ nobeep:
 	@sudo bash -c 'echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf'
 
 .PHONY: link
-link: emacs-links
+link: emacs-links nix-links
 	@rm ~/.profile
 	@for dotfile in $(DOTFILES); do \
 		ln -sr $$dotfile ~/$$dotfile; \
@@ -69,6 +75,10 @@ emacs-links:
 	-@ln -sr early-init.el ~/.emacs.d/.early-init.el
 	-@ln -sr emacs-custom.el ~/.emacs.d/.emacs-custom.el
 
+.PHONY: nix-links
+nix-links:
+	-@mkdir ~/.config/nixpkgs
+	-@ln -sr home.nix ~/.config/nixpkgs/home.nix
 
 .PHONY: asdf
 asdf:

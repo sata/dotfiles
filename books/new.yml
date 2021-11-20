@@ -79,4 +79,5 @@
         repo: git://git.sv.gnu.org/emacs.git
         dest: ~/sources/emacs
     - include: build_emacs_tasks.yml
+    - include: nix_tasks.yml
     - debug: var=out.stdout_lines
