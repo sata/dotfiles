@@ -25,6 +25,17 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+(defun delete-current-file ()
+  (interactive)
+  (let ((fname (buffer-file-name)))
+    (if fname
+        (if (y-or-n-p (format "delete file: %s?" fname))
+            (progn
+              (delete-file fname)
+              (kill-current-buffer)
+              (message "file deleted: %s" fname)))
+      (message "not a file buffer"))))
+
 ;; disable trailing whitespace where it's annoying
 (setq show-trailing-whitespace t)
 (dolist (hook '(term-mode-hook
