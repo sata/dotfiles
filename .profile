@@ -22,3 +22,6 @@ if [ -d "$HOME/bin" ] ; then
 fi
 
 export PATH="$HOME/.cargo/bin:$PATH"
+
+setxkbmap -option ctrl:nocaps
+setxkbmap -option compose:ralt

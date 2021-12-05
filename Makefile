@@ -12,26 +12,9 @@ all: install
 install: ohmyzsh link nobeep asdf erlang elixir phx elixir-ls gotools rust adr-install tf-install ddcutil-install
 
 
-.PHONY: rigup
-rigup:
-	@sudo apt-get install -y ansible
-	@ansible-playbook -c local -i localhost, -K -e ansible_user=s books/new.yml
-
 .PHONY: ohmyzsh
 ohmyzsh:
 	@sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-.PHONY: emacs
-emacs:
-	@ansible-playbook -c local -i localhost, -K books/build_emacs.yml
-
-.PHONY: go
-go:
-	@ansible-playbook -c local -i localhost, books/go.yml
-
-.PHONY: nix
-nix:
-	@ansible-playbook -c local -i localhost, books/nix.yml -e nix_version=${NIX_VERSION}
 
 .PHONY: i3
 i3: rofi greenclip
@@ -39,7 +22,7 @@ i3: rofi greenclip
 	@ln -sr i3-config ~/.config/i3/config
 
 .PHONY: redshift
-redshift: redshift-apparmor
+redshift:
 	@mkdir -p ~/.config/redshift
 	@ln -sr redshift.conf ~/.config/redshift/redshift.conf
 
@@ -146,5 +129,4 @@ tf-install: tfenv-install
 ddcutil-install:
 	@sudo -- bash -c 'modprobe i2c-dev && \
 		echo i2c_dev >> /etc/modules-load.d/ddc.conf && \
-	  groupadd i2c && \
 		sudo cp /usr/share/ddcutil/data/45-ddcutil-i2c.rules /etc/udev/rules.d/'

@@ -1,4 +1,0 @@
----
-- hosts: all
-  tasks:
-    - include: build_emacs_tasks.yml

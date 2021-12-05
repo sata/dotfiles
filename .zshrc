@@ -20,10 +20,6 @@ setopt NO_HUP
 HISTSIZE=100000
 SAVESIZE=100000
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 alias dh="ssh first_one"
 alias rpi="ssh rpi"
 
@@ -35,6 +31,7 @@ alias bctl='bluetoothctl'
 alias k='kubectl'
 alias t='i3-sensible-terminal&'
 alias dotfiles='cd ~/sources/dotfiles'
+alias books='cd ~/sources/books'
 
 extmonbrt () {
     ddcutil setvcp 10 $1 10 --display 1
@@ -46,7 +43,6 @@ export GOPATH="$HOME/go"
 
 export EDITOR="emacs -nw"
 
-[[ -s "/home/s/.gvm/scripts/gvm" ]] && source "/home/s/.gvm/scripts/gvm"
-if [ -e /home/s/.nix-profile/etc/profile.d/nix.sh ]; then . /home/s/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
 source ~/.banner.sh
+
+if [ -e /home/s/.nix-profile/etc/profile.d/nix.sh ]; then . /home/s/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

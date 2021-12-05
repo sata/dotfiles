@@ -1,4 +1,0 @@
----
-- hosts: all
-  tasks:
-    - include: nix_tasks.yml
