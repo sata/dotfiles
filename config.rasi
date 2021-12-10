@@ -1,5 +1,6 @@
 configuration {
  modi: "drun";
- theme: "Arc-Dark";
  font: "hack 10";
 }
+
+@theme "Arc-Dark"
