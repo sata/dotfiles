@@ -23,5 +23,4 @@ fi
 
 export PATH="$HOME/.cargo/bin:$PATH"
 
-setxkbmap -option ctrl:nocaps
-setxkbmap -option compose:ralt
+if [ -e /home/s/.nix-profile/etc/profile.d/nix.sh ]; then . /home/s/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

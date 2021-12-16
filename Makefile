@@ -129,4 +129,5 @@ tf-install: tfenv-install
 ddcutil-install:
 	@sudo -- bash -c 'modprobe i2c-dev && \
 		echo i2c_dev >> /etc/modules-load.d/ddc.conf && \
+		sudo usermod -a -G i2c s && \
 		sudo cp /usr/share/ddcutil/data/45-ddcutil-i2c.rules /etc/udev/rules.d/'
