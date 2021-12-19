@@ -4,9 +4,8 @@ font pango:monospace 8
 
 exec_always --no-startup-id sleep 1; xinput disable 'Elan Touchpad'
 exec_always --no-startup-id sleep 1; xset s on
-exec_always --no-startup-id sleep 1; xset s 180 120
 
-exec --no-startup-id xss-lock -l -- i3lock -i ~/documents/screensaver.png -t -e -f -n
+exec --no-startup-id xautolock -time 5 -secure -corners 00-0 -locker 'i3lock -i ~/documents/screensaver.png -t -e -f -n'
 exec --no-startup-id redshift -c ~/.config/redshift/redshift.conf
 exec --no-startup-id nm-applet
 
@@ -176,10 +175,8 @@ bindsym $mod+m bar mode toggle
 for_window [class = "Firefox"] layout tabbed
 for_window [class="Spotify"] move to workspace $ws10
 
-exec --no-startup-id i3-msg 'workspace $ws1; exec firefox-esr; workspace $ws1'
 exec --no-startup-id i3-msg 'workspace $ws2; exec emacs; workspace $ws1'
-exec --no-startup-id i3-msg 'workspace $ws3; exec i3-sensible-terminal; workspace $ws1'
-exec --no-startup-id spotify
+exec --no-startup-id i3-msg 'workspace $ws2; exec i3-sensible-terminal; workspace $ws1'
 exec --no-startup-id greenclip daemon
 exec --no-startup-id feh --bg-scale /home/s/documents/rifka.jpg
 
