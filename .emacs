@@ -182,7 +182,7 @@
         '(("d" "default" entry
            "* %?"
            :if-new (file+head "%<%Y-%m-%d>.org"
-                              "#+title: %<%Y-%m-%d>\n\n* Tasks:\n  - [ ] "))))
+                              "#+title: %<%Y-%m-%d>\n\n[[id:aa4e2c92-c164-44e8-9491-38e57084b61f][dailies]]\n\n* Tasks:\n  - [ ] "))))
        )
 
       :bind (("C-c n l" . org-roam-buffer-toggle)
@@ -259,27 +259,19 @@
     ad-do-it))
 (ad-activate 'align-regexp)
 
+(use-package org-roam-ui
+  :ensure t
+  :after org-roam
+  :init
+  (setq org-roam-ui-sync-theme t)
+  (setq org-roam-ui-follow t)
+  (setq org-roam-ui-update-on-save t)
+  (setq org-roam-ui-open-on-start t))
+
 ;; -------
 ;; hack
 ;; stuff I used that are not on ELPA, but only matter on a fully blown
 ;; workstation, not Vagrant
-(setq org-roam-ui-path  "~/.emacs.d/slask/org-roam-ui")
-(when (file-exists-p org-roam-ui-path)
-  (add-to-list 'load-path "~/.emacs.d/slask/org-roam-ui")
-  (use-package simple-httpd
-    :ensure t)
-  (use-package websocket
-    :ensure t)
-  (use-package org-roam-ui
-    :after org-roam
-    :init
-    (setq org-roam-ui-sync-theme t)
-    (setq org-roam-ui-follow t)
-    (setq org-roam-ui-update-on-save t)
-    (setq org-roam-ui-open-on-start t)
-    :config
-    (load-library "org-roam-ui"))
-  )
 
 ;; only care about presentations when I've got it cloned
 ;; helps vagrant setups
