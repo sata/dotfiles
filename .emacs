@@ -104,6 +104,9 @@
 (use-package go-mode
   :ensure t)
 
+(use-package go-dlv
+  :ensure t)
+
 ;; Set up before-save hooks to format buffer and add/delete imports.
 ;; Make sure you don't have other gofmt/goimports hooks enabled.
 (defun lsp-go-install-save-hooks ()
