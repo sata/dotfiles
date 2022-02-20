@@ -34,7 +34,7 @@ alias dotfiles='cd ~/sources/dotfiles'
 alias books='cd ~/sources/books'
 
 extmonbrt () {
-    ddcutil setvcp 10 $1 10 --display 1
+    ddcutil setvcp 10 $1 20 --display 1
 }
 
 . $HOME/.asdf/asdf.sh
