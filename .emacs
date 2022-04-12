@@ -49,11 +49,6 @@
   :config
   (load-theme 'cyberpunk t))
 
-(use-package neotree
-  :ensure t
-  :init
-  (global-set-key [f12] 'neotree-toggle))
-
 (use-package nix-mode
   :ensure t
   :mode "\\.nix\\'")
@@ -76,6 +71,9 @@
   :ensure t)
 
 (use-package terraform-mode
+  :ensure t)
+
+(use-package git-link
   :ensure t)
 
 (use-package smex
@@ -104,7 +102,7 @@
 (use-package go-mode
   :ensure t)
 
-(use-package go-dlv
+(use-package dap-mode
   :ensure t)
 
 ;; Set up before-save hooks to format buffer and add/delete imports.
@@ -119,6 +117,8 @@
   :commands lsp lsp-deferred
   :init
   (setq lsp-keymap-prefix "s-o")
+  (setq lsp-go-use-gofumpt t)
+  (setq lsp-go-env '((GOFLAGS . "-mod=vendor")))
   (setq lsp-file-watch-threshold 10000)
   (setq lsp-enable-file-watchers t)
   (setq debug-on-error nil)
@@ -134,6 +134,11 @@
   (add-hook 'go-mode-hook #'lsp-go-install-save-hooks))
 
 ;; Optional - provides fancier overlays.
+(use-package lsp-treemacs
+  :ensure t
+  :init
+  (lsp-treemacs-sync-mode 1))
+
 (use-package lsp-ui
   :ensure t
   :init
@@ -285,3 +290,71 @@
         :init
         (setq org-reveal-root "file:///home/s/sources/reveal.js")
         :config))
+
+;; veri veri hacki
+;; until someone (including me) has time to fix https://github.com/emacs-lsp/dap-mode/issues/318
+
+(require 'dap-mode)
+(require 'dap-utils)
+
+(setq dap-go-debug-program (executable-find "dlv"))
+
+(defcustom dap-go-delve-path (or (executable-find "dlv")
+                                 (expand-file-name "dlv" (expand-file-name "bin" (getenv "GOPATH"))))
+  "The path to the delve command."
+  :group 'dap-go
+  :type 'string)
+
+(defun dap-go--populate-default-args (conf)
+  "Populate CONF with the default arguments."
+  (setq conf (pcase (plist-get conf :mode)
+               ("auto" (dap-go--populate-auto-args conf))
+               ("debug" (dap--put-if-absent conf :program (f-dirname (buffer-file-name))))
+               ("exec" (dap--put-if-absent conf :program (read-file-name "enter full path to executable without tilde:")))
+               ("remote" (dap--put-if-absent conf :program (f-dirname (buffer-file-name)))
+		            (dap--put-if-absent conf :host (read-string "enter host:" "127.0.0.1"))
+		            (dap--put-if-absent conf :port (string-to-number (read-string "Enter port: " "2345"))))
+               ("local"
+                (dap--put-if-absent conf :cwd (f-dirname (buffer-file-name)))
+                (dap--put-if-absent conf :processId (string-to-number (read-string "Enter pid: " "2345"))))
+	             ))
+
+  (let ((debug-port (dap--find-available-port)))
+    (plist-put conf :host "localhost")
+    (plist-put conf :program-to-start (format "%s dap --listen 127.0.0.1:%s" dap-go-debug-program debug-port))
+    (plist-put conf :debugServer debug-port))  
+
+
+  (if (stringp (plist-get conf :args)) (plist-put conf :args (split-string (plist-get conf :args))) ())
+  
+  (-> conf
+
+      (dap--put-if-absent :dlvToolPath dap-go-delve-path)
+      (dap--put-if-absent :packagePathToGoModPathMap
+                          (ht<-alist `((,(f-dirname (buffer-file-name))  . ,(lsp-find-session-folder (lsp-session) (buffer-file-name))))))
+      
+      (dap--put-if-absent :type "go")
+      (dap--put-if-absent :name "Go Debug")))
+
+(defun dap-go--populate-auto-args (conf)
+  "Populate auto arguments."
+  (dap--put-if-absent conf :program (buffer-file-name))
+
+  (if (string-suffix-p "_test.go" (buffer-file-name))
+      (plist-put conf :mode "test")
+    (plist-put conf :mode "debug")))
+
+(dap-register-debug-provider "go" 'dap-go--populate-default-args)
+
+(dap-register-debug-template "Go Launch File Configuration"
+                             (list :type "go"
+                                   :request "launch"
+                                   :name "Launch File"
+                                   :mode "auto"
+                                   :program nil
+                                   :buildFlags nil
+                                   :args nil
+                                   :env nil
+                                   :envFile nil))
+(provide 'dap-go)
+;;; dap-go.el ends here
