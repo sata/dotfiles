@@ -44,10 +44,10 @@
   (add-hook hook
             (lambda () (setq show-trailing-whitespace nil))))
 
-(use-package cyberpunk-theme
+(use-package gruvbox-theme
   :ensure t
   :config
-  (load-theme 'cyberpunk t))
+  (load-theme 'gruvbox-dark-hard t))
 
 (use-package nix-mode
   :ensure t
