@@ -112,6 +112,11 @@
   (add-hook 'before-save-hook #'lsp-organize-imports t t))
 (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
 
+;; hack because lsp-mode is not handling the lsp-keymap-prefix nicely
+;; https://github.com/emacs-lsp/lsp-mode/issues/1672
+(setq lsp-keymap-prefix "s-o")
+(define-key lsp-mode-map (kbd lsp-keymap-prefix) lsp-command-map)
+
 (use-package lsp-mode
   :ensure t
   :commands lsp lsp-deferred
