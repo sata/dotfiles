@@ -37,6 +37,16 @@ extmonbrt () {
     ddcutil setvcp 10 $1 20 --display 1
 }
 
+lsh() {
+    dir="$1"
+    if [ -z "$dir" ]
+    then
+        dir="."
+    fi
+
+    ls -ltc --color=always "$dir" | head -n 20
+}
+
 . $HOME/.asdf/asdf.sh
 
 export GOPATH="$HOME/go"
