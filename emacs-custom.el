@@ -9,8 +9,8 @@
  '(c-basic-offset 2)
  '(column-number-mode t)
  '(default-frame-alist
-   '((horizontal-scroll-bars)
-     (font . "-CTDB-Fira Code-semibold-normal-normal-*-14-*-*-*-d-0-iso10646-1")))
+    '((horizontal-scroll-bars)
+      (font . "-CTDB-Fira Code-semibold-normal-normal-*-14-*-*-*-d-0-iso10646-1")))
  '(delete-old-versions t)
  '(electric-pair-mode t)
  '(global-company-mode t)
@@ -47,6 +47,7 @@
  '(vc-follow-symlinks t)
  '(version-control t)
  '(warning-suppress-log-types '((comp)))
+ '(winner-mode t)
  '(x-select-enable-clipboard-manager t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
