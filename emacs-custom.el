@@ -8,6 +8,7 @@
  '(backup-directory-alist '(("." . "~/.emacs.d/saves")))
  '(c-basic-offset 2)
  '(column-number-mode t)
+ '(dap-ui-variable-length 90)
  '(default-frame-alist
     '((horizontal-scroll-bars)
       (font . "-CTDB-Fira Code-semibold-normal-normal-*-14-*-*-*-d-0-iso10646-1")))
