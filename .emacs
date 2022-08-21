@@ -11,6 +11,13 @@
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
+;; use for debugging slow startup
+(use-package benchmark-init
+  :ensure t
+  :config
+  ;; To disable collection of benchmark data after init is done.
+  (add-hook 'after-init-hook 'benchmark-init/deactivate))
+
 (setq
  comp-deferred-compilation t
  custom-file "~/.emacs.d/.emacs-custom.el")
@@ -58,23 +65,28 @@
 
 (use-package deadgrep
   :ensure t
-  :init
+  :config
   (global-set-key [f11] 'deadgrep))
 
 (use-package anzu
-  :ensure t)
+  :ensure t
+  :defer t)
 
 (use-package magit
-  :ensure t)
+  :ensure t
+  :defer t)
 
 (use-package yaml
-  :ensure t)
+  :ensure t
+  :defer t)
 
 (use-package terraform-mode
-  :ensure t)
+  :ensure t
+  :defer t)
 
 (use-package git-link
-  :ensure t)
+  :ensure t
+  :defer t)
 
 (use-package smex
   :ensure t
@@ -94,16 +106,19 @@
 
 (use-package projectile
   :ensure t
+  :defer t
   :config
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-global-mode))
 
 (use-package go-mode
+  :defer t
   :ensure t)
 
 (use-package dap-mode
-  :ensure t)
+  :ensure t
+  :defer t)
 
 ;; Set up before-save hooks to format buffer and add/delete imports.
 ;; Make sure you don't have other gofmt/goimports hooks enabled.
@@ -115,12 +130,13 @@
 ;; hack because lsp-mode is not handling the lsp-keymap-prefix nicely
 ;; https://github.com/emacs-lsp/lsp-mode/issues/1672
 (setq lsp-keymap-prefix "s-o")
-(define-key lsp-mode-map (kbd lsp-keymap-prefix) lsp-command-map)
+;; (define-key lsp-mode-map (kbd lsp-keymap-prefix) lsp-command-map)
 
 (use-package lsp-mode
   :ensure t
+  :defer t
   :commands lsp lsp-deferred
-  :init
+  :config
   (setq lsp-keymap-prefix "s-o")
   (setq lsp-go-use-gofumpt t)
   (setq lsp-go-env '((GOFLAGS . "-mod=vendor")))
@@ -141,33 +157,32 @@
 ;; Optional - provides fancier overlays.
 (use-package lsp-treemacs
   :ensure t
-  :init
+  :defer t
+  :config
   (lsp-treemacs-sync-mode 1))
 
 (use-package lsp-ui
   :ensure t
-  :init
+  :defer t
+  :config
   (setq lsp-ui-flycheck-enable 1)
   :commands lsp-ui-mode)
+
+(setq company-global-modes '(not org-mode not shell-mode eshell-mode not debugger-mode))
 
 ;; Company mode is a standard completion package that works well with lsp-mode.
 (use-package company
   :ensure t
+  :defer t
   :config
   ;; Optionally enable completion-as-you-type behavior.
+  (setq lsp-completion-provider :capf)
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1))
 
-(setq company-global-modes '(not org-mode not shell-mode eshell-mode not debugger-mode))
-
-(use-package company
-  :ensure t
-  :hook (scala-mode . company-mode)
-  :config
-  (setq lsp-completion-provider :capf))
-
 (use-package k8s-mode
   :ensure t
+  :defer t
   :hook (k8s-mode . yas-minor-mode))
 
 ;; Optional - provides snippet support.
@@ -178,40 +193,43 @@
 
 (use-package flycheck-golangci-lint
   :ensure t
+  :defer t
   :hook (go-mode . flycheck-golangci-lint-setup))
 
 (setq org-roam-v2-ack t)
 (setq org-roam-directory "~/org/roam")
 (use-package org-roam
-      :ensure t
-      :custom
-      (
-       (org-roam-dailies-directory "daily/")
-       (org-roam-v2-ack t)
-       ;; tags display don't work nicely with ido, i'm not using it
-       ;; either so lets just display title
-       (org-roam-node-display-template "${title}")
-       (org-roam-dailies-capture-templates
-        '(("d" "default" entry
-           "* %?"
-           :if-new (file+head "%<%Y-%m-%d>.org"
-                              "#+title: %<%Y-%m-%d>\n\n[[id:aa4e2c92-c164-44e8-9491-38e57084b61f][dailies]]\n\n* Tasks:\n  - [ ] "))))
-       )
+  :ensure t
+  :defer t
+  :custom
+  (
+   (org-roam-dailies-directory "daily/")
+   (org-roam-v2-ack t)
+   ;; tags display don't work nicely with ido, i'm not using it
+   ;; either so lets just display title
+   (org-roam-node-display-template "${title}")
+   (org-roam-dailies-capture-templates
+    '(("d" "default" entry
+       "* %?"
+       :if-new (file+head "%<%Y-%m-%d>.org"
+                          "#+title: %<%Y-%m-%d>\n\n[[id:aa4e2c92-c164-44e8-9491-38e57084b61f][dailies]]\n\n* Tasks:\n  - [ ] "))))
+   )
 
-      :bind (("C-c n l" . org-roam-buffer-toggle)
-             ("C-c n f" . org-roam-node-find)
-             ("C-c n g" . org-roam-graph)
-             ("C-c n i" . org-roam-node-insert)
-             ("C-c d r" . org-roam-dailies-goto-tomorrow)
-             ("C-c d t" . org-roam-dailies-goto-today)
-             ("C-c d y" . org-roam-dailies-goto-yesterday)
-             ("C-C d p" . org-roam-dailies-goto-previous-note)
-             ("C-C d n" . org-roam-dailies-goto-next-note)
-             )
-      :config
-      (org-roam-setup))
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c d r" . org-roam-dailies-goto-tomorrow)
+         ("C-c d t" . org-roam-dailies-goto-today)
+         ("C-c d y" . org-roam-dailies-goto-yesterday)
+         ("C-C d p" . org-roam-dailies-goto-previous-note)
+         ("C-C d n" . org-roam-dailies-goto-next-note)
+         )
+  :config
+  (org-roam-setup))
 
 (use-package tex-mode
+  :defer t
   :config
   (setq TeX-auto-save t)
   (setq TeX-parse-self t)
@@ -224,6 +242,7 @@
 
 (use-package markdown-mode
   :ensure t
+  :defer t
   :config
   (autoload 'markdown-mode "markdown-mode"
     "Major mode for editing Markdown files" t)
@@ -233,7 +252,8 @@
 
 (use-package plantuml-mode
   :ensure t
-  :init
+  :defer t
+  :config
   (setq plantuml-jar-path "/home/s/plantuml.jar")
   (setq plantuml-default-exec-mode 'jar)
   (setq plantuml-output-type '"png")
@@ -243,23 +263,29 @@
 
 (use-package ccls
   :ensure t
+  :defer t
   :hook ((c-mode c++-mode objc-mode cuda-mode) .
          (lambda () (require 'ccls) (lsp))))
 
 ;; rust
 (use-package toml-mode
-  :ensure t)
+  :ensure t
+  :defer t)
+
 (use-package rust-mode
   :ensure t
+  :defer t
   :hook (rust-mode . lsp))
 
 ;; Add keybindings for interacting with Cargo
 (use-package cargo
   :ensure t
+  :defer t
   :hook (rust-mode . cargo-minor-mode))
 
 (use-package flycheck-rust
   :ensure t
+  :defer t
   :config
   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
   (add-hook 'before-save-hook (lambda () (when (eq 'rust-mode major-mode)
@@ -274,8 +300,9 @@
 
 (use-package org-roam-ui
   :ensure t
+  :defer t
   :after org-roam
-  :init
+  :config
   (setq org-roam-ui-sync-theme t)
   (setq org-roam-ui-follow t)
   (setq org-roam-ui-update-on-save t)
@@ -288,17 +315,18 @@
 
 ;; only care about presentations when I've got it cloned
 ;; helps vagrant setups
-(setq ox-reveal-path "~/sources/org-reveal/ox-reveal.el")
-(when (file-exists-p ox-reveal-path)
-      (load ox-reveal-path)
-      (use-package ox-reveal
-        :init
-        (setq org-reveal-root "file:///home/s/sources/reveal.js")
-        :config))
+;; (setq ox-reveal-path "~/sources/org-reveal/ox-reveal.el")
+;; (when (file-exists-p ox-reveal-path)
+;;       (load ox-reveal-path)
+;;       (use-package ox-reveal
+;;         :defer t
+;;         :config
+;;         (setq org-reveal-root "file:///home/s/sources/reveal.js")))
 
 ;; veri veri hacki
 ;; until someone (including me) has time to fix https://github.com/emacs-lsp/dap-mode/issues/318
 
+(setq dap-print-io t)
 (require 'dap-mode)
 (require 'dap-utils)
 
