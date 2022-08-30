@@ -5,7 +5,7 @@ font pango:monospace 8
 exec_always --no-startup-id sleep 1; xinput disable 'Elan Touchpad'
 exec_always --no-startup-id sleep 1; xset s on
 
-exec --no-startup-id xautolock -time 5 -secure -corners 00-0 -locker 'i3lock -i ~/documents/screensaver.png -t -e -f -n'
+exec --no-startup-id xautolock -time 5 -secure -corners 00-0 -locker 'greenclip clear && i3lock -i ~/documents/screensaver.png -t -e -f -n'
 exec --no-startup-id redshift -c ~/.config/redshift/redshift.conf
 exec --no-startup-id nm-applet
 
