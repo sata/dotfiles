@@ -168,7 +168,7 @@
   (setq lsp-ui-flycheck-enable 1)
   :commands lsp-ui-mode)
 
-(setq company-global-modes '(not org-mode not shell-mode eshell-mode not debugger-mode))
+(setq company-global-modes '(not org-mode not sh-mode not eshell-mode not debugger-mode not latex-mode))
 
 ;; Company mode is a standard completion package that works well with lsp-mode.
 (use-package company
