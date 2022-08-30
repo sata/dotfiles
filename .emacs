@@ -56,17 +56,65 @@
   :config
   (load-theme 'gruvbox-dark-hard t))
 
+(use-package vertico
+  :ensure t
+  :init
+  (vertico-mode)
+  :custom
+  (vertico-cycle t))
+
+(use-package consult
+  :ensure t
+  :bind
+  (("M-s d" . consult-find)
+   ("M-s D" . consult-locate)
+   ("M-s g" . consult-grep)
+   ("M-s G" . consult-git-grep)
+   ("M-s r" . consult-ripgrep)
+   ("M-s l" . consult-line)
+   ("M-s L" . consult-line-multi)
+   ("M-s m" . consult-multi-occur)
+   ("M-s k" . consult-keep-lines))
+  :hook (completion-list-mode . consult-preview-at-point-mode)
+  :init
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref))
+
+;; init so we bind before lsp-mode binds
+(use-package consult-lsp
+  :ensure t
+  :bind
+  (("s-o d" . consult-lsp-diagnostics)
+   ("s-o s" . consult-lsp-symbols)
+   ("s-o f" . consult-lsp-file-symbols))
+  :init)
+
+(use-package orderless
+  :ensure t
+  :after vertico
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
+
+(use-package marginalia
+  :ensure t
+  :after vertico
+  :init
+  (marginalia-mode))
+
+(use-package savehist
+  :init
+  (savehist-mode))
+
+(use-package consult-projectile
+  :ensure t)
+
 (use-package nix-mode
   :ensure t
   :mode "\\.nix\\'")
 
 (use-package vterm
   :ensure t)
-
-(use-package deadgrep
-  :ensure t
-  :config
-  (global-set-key [f11] 'deadgrep))
 
 (use-package anzu
   :ensure t
@@ -87,11 +135,6 @@
 (use-package git-link
   :ensure t
   :defer t)
-
-(use-package smex
-  :ensure t
-  :bind (("M-x" . smex))
-  :config (smex-initialize))
 
 (use-package which-key
   :ensure t
