@@ -211,33 +211,22 @@
   (setq lsp-ui-flycheck-enable 1)
   :commands lsp-ui-mode)
 
-(setq company-global-modes '(not org-mode not sh-mode not eshell-mode not debugger-mode not latex-mode))
-
 ;; Company mode is a standard completion package that works well with lsp-mode.
 (use-package company
   :ensure t
-  :defer t
   :config
   ;; Optionally enable completion-as-you-type behavior.
   (setq lsp-completion-provider :capf)
   (setq company-idle-delay 0)
-  (setq company-minimum-prefix-length 1))
+  (setq company-minimum-prefix-length 1)
+  (setq company-global-modes '(not org-mode not sh-mode not eshell-mode not debugger-mode not latex-mode))
+  :init
+  (global-company-mode t))
 
 (use-package k8s-mode
   :ensure t
   :defer t
   :hook (k8s-mode . yas-minor-mode))
-
-;; Optional - provides snippet support.
-(use-package yasnippet
-  :ensure t
-  :commands yas-minor-mode
-  :hook (go-mode . yas-minor-mode))
-
-(use-package flycheck-golangci-lint
-  :ensure t
-  :defer t
-  :hook (go-mode . flycheck-golangci-lint-setup))
 
 (setq org-roam-v2-ack t)
 (setq org-roam-directory "~/org/roam")
@@ -429,6 +418,16 @@
                                    :mode "auto"
                                    :program nil
                                    :buildFlags nil
+                                   :args nil
+                                   :env nil
+                                   :envFile nil))
+
+(dap-register-debug-template "Go Connect Remote dlv Configuration"
+                             (list :type "go"
+                                   :request "attach"
+                                   :name "Connect to Remote dlv"
+                                   :mode "remote"
+                                   :program nil
                                    :args nil
                                    :env nil
                                    :envFile nil))
