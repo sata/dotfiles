@@ -190,7 +190,7 @@
   (setq lsp-go-use-gofumpt t)
   (setq lsp-go-env '((GOFLAGS . "-mod=vendor")))
   (setq lsp-file-watch-threshold 10000)
-  (setq lsp-enable-file-watchers t)
+  (setq lsp-enable-file-watchers nil)
   (setq debug-on-error nil)
   (setq lsp-terraform-server `(,"terraform-ls" "serve"))
   :hook (
