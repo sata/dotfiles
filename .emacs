@@ -11,12 +11,12 @@
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
-;; use for debugging slow startup
-(use-package benchmark-init
-  :ensure t
-  :config
-  ;; To disable collection of benchmark data after init is done.
-  (add-hook 'after-init-hook 'benchmark-init/deactivate))
+;; ;; use for debugging slow startup
+;; (use-package benchmark-init
+;;   :ensure t
+;;   :config
+;;   ;; To disable collection of benchmark data after init is done.
+;;   (add-hook 'after-init-hook 'benchmark-init/deactivate))
 
 (setq
  comp-deferred-compilation t
@@ -174,6 +174,12 @@
 ;; https://github.com/emacs-lsp/lsp-mode/issues/1672
 (setq lsp-keymap-prefix "s-o")
 ;; (define-key lsp-mode-map (kbd lsp-keymap-prefix) lsp-command-map)
+
+;; required for code completion
+(use-package yasnippet
+  :defer t
+  :ensure t
+  :hook ((lsp-mode . yas-minor-mode)))
 
 (use-package lsp-mode
   :ensure t
