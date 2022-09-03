@@ -157,29 +157,30 @@
 
 (use-package go-mode
   :defer t
-  :ensure t)
+  :ensure t
+  :hook (go-mode . (lambda()
+                     (flycheck-golangci-lint-setup)
+                     (setq flycheck-local-checkers '((lsp . ((next-checkers . (golangci-lint)))))))))
 
 (use-package dap-mode
   :ensure t
   :defer t)
-
-;; Set up before-save hooks to format buffer and add/delete imports.
-;; Make sure you don't have other gofmt/goimports hooks enabled.
-(defun lsp-go-install-save-hooks ()
-  (add-hook 'before-save-hook #'lsp-format-buffer t t)
-  (add-hook 'before-save-hook #'lsp-organize-imports t t))
-(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
-
-;; hack because lsp-mode is not handling the lsp-keymap-prefix nicely
-;; https://github.com/emacs-lsp/lsp-mode/issues/1672
-(setq lsp-keymap-prefix "s-o")
-;; (define-key lsp-mode-map (kbd lsp-keymap-prefix) lsp-command-map)
 
 ;; required for code completion
 (use-package yasnippet
   :defer t
   :ensure t
   :hook ((lsp-mode . yas-minor-mode)))
+
+;; hack because lsp-mode is not handling the lsp-keymap-prefix nicely
+;; https://github.com/emacs-lsp/lsp-mode/issues/1672
+(setq lsp-keymap-prefix "s-o")
+;; (define-key lsp-mode-map (kbd lsp-keymap-prefix) lsp-command-map)
+
+(defun lsp-go-install-save-hooks ()
+  "Save hooks for go mode."
+  (add-hook 'before-save-hook #'lsp-format-buffer t t)
+  (add-hook 'before-save-hook #'lsp-organize-imports t t))
 
 (use-package lsp-mode
   :ensure t
@@ -191,17 +192,41 @@
   (setq lsp-go-env '((GOFLAGS . "-mod=vendor")))
   (setq lsp-file-watch-threshold 10000)
   (setq lsp-enable-file-watchers nil)
+  (setq lsp-go-analyses
+        '((nilness        . t)
+          (shadow         . t)
+          (unusedparams   . t)
+          (unusedwrite    . t)
+          (useany         . t)
+          (unusedvariable . t)))
   (setq debug-on-error nil)
   (setq lsp-terraform-server `(,"terraform-ls" "serve"))
-  :hook (
-         (go-mode        . lsp-deferred)
-         (yaml-mode      . lsp-deferred)
-         (terraform-mode . lsp-deferred)
-         (lsp-mode       . lsp-enable-which-key-integration))
-  :config
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
   (add-hook 'before-save-hook #'lsp-organize-imports t t)
-  (add-hook 'go-mode-hook #'lsp-go-install-save-hooks))
+  :hook (
+         (go-mode        . lsp-deferred)
+         (go-mode        . lsp-go-install-save-hooks)
+         (yaml-mode      . lsp-deferred)
+         (terraform-mode . lsp-deferred)
+         (lsp-mode       . lsp-enable-which-key-integration)))
+
+;; https://github.com/weijiangan/flycheck-golangci-lint/issues/8
+(defvar-local flycheck-local-checkers nil)
+
+(defun +flycheck-checker-get(fn checker property)
+  "Get CHECKER from buffer-local var before asking FN.
+Provides a way for modes to hook their checkers in."
+  (or (alist-get property (alist-get checker flycheck-local-checkers))
+      (funcall fn checker property)))
+
+(advice-add 'flycheck-checker-get :around '+flycheck-checker-get)
+
+(use-package flycheck-golangci-lint
+  :defer t
+  :ensure t
+  :config
+  ;; (setq flycheck-golangci-lint-enable-all t) ;; rely more on available lint file.
+  (setq flycheck-golangci-lint-fast t))
 
 ;; Optional - provides fancier overlays.
 (use-package lsp-treemacs
@@ -214,7 +239,6 @@
   :ensure t
   :defer t
   :config
-  (setq lsp-ui-flycheck-enable 1)
   :commands lsp-ui-mode)
 
 ;; Company mode is a standard completion package that works well with lsp-mode.
@@ -320,6 +344,11 @@
   :ensure t
   :defer t
   :hook (rust-mode . cargo-minor-mode))
+
+(use-package flycheck
+  :ensure t
+  :init
+  (global-flycheck-mode))
 
 (use-package flycheck-rust
   :ensure t
