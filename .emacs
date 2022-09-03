@@ -33,6 +33,7 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (defun delete-current-file ()
+  "Helper to delete currently opened file and kill buffer."
   (interactive)
   (let ((fname (buffer-file-name)))
     (if fname
