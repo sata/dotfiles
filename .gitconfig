@@ -3,7 +3,7 @@
 	email = "gitspam@tavakoli.se"
 	signingkey = 5A334DFEF31F82EDED064051855BC880AE746FC0
 [core]
-	editor = emacs -nw
+	editor = emacsclient -nw
 	autocrlf = input
 	whitespace=warn,-indent-with-non-tab,trailing-space,cr-at-eol
 	excludesfile = ~/.gitignore

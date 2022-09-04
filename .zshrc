@@ -51,7 +51,7 @@ lsh() {
 
 export GOPATH="$HOME/go"
 
-export EDITOR="emacs -nw"
+export EDITOR="emacsclient -nw"
 
 source ~/.banner.sh
 
