@@ -70,7 +70,7 @@ floating_modifier $mod
 
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+Shift+n [class="Emacs"] scratchpad show
-bindsym $mod+Shift+m [class="Emacs"] focus
+bindsym $mod+Shift+m [class="firefox"] focus
 bindsym $mod+Shift+less [class="Gnome-terminal"] focus
 bindsym $mod+Shift+greater [class="Emacs"] focus
 
