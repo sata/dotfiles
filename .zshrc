@@ -8,7 +8,6 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:/usr/local/bin:$HOME/.local/bin"
 export PATH="$PATH:/usr/local/go/bin:$HOME/go/bin"
 export PATH="$PATH:$HOME/sources/elixir-ls/release/"
-export PATH="$HOME/.tfenv/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
 
