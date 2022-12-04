@@ -362,11 +362,12 @@ Provides a way for modes to hook their checkers in."
 
 (use-package flycheck-rust
   :ensure t
-  :defer t
   :config
-  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
+  (with-eval-after-load 'rust-mode
+    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
   (add-hook 'before-save-hook (lambda () (when (eq 'rust-mode major-mode)
                                            (lsp-format-buffer)))))
+
 ;; nicked from https://stackoverflow.com/questions/915985/
 ;; Align with spaces only
 (defadvice align-regexp (around align-regexp-with-spaces)
