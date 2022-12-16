@@ -358,7 +358,11 @@ Provides a way for modes to hook their checkers in."
 (use-package flycheck
   :ensure t
   :init
-  (global-flycheck-mode))
+  (global-flycheck-mode)
+  :config
+  (setq flycheck-check-syntax-automatically '(idle-change))
+  (setq flycheck-idle-change-delay 5)
+  )
 
 (use-package flycheck-rust
   :ensure t
