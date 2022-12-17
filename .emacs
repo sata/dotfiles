@@ -176,34 +176,62 @@
 
 (use-package go-mode
   :defer t
-  :ensure t
-  :hook (go-mode . (lambda()
-                     (flycheck-golangci-lint-setup)
-                     (setq flycheck-local-checkers '((lsp . ((next-checkers . (golangci-lint)))))))))
+  :ensure t)
 
-;; https://github.com/weijiangan/flycheck-golangci-lint/issues/8
-(defvar-local flycheck-local-checkers nil)
+;; required for code completion
+(use-package yasnippet
+  :ensure t)
 
-(defun +flycheck-checker-get(fn checker property)
-  "Get CHECKER from buffer-local var before asking FN.
-Provides a way for modes to hook their checkers in."
-  (or (alist-get property (alist-get checker flycheck-local-checkers))
-      (funcall fn checker property)))
+(defun project-find-go-module (dir)
+  (when-let ((root (locate-dominating-file dir "go.mod")))
+    (cons 'go-module root)))
 
-(advice-add 'flycheck-checker-get :around '+flycheck-checker-get)
+(cl-defmethod project-root ((project (head go-module)))
+  (cdr project))
 
-(use-package flycheck-golangci-lint
-  :defer t
-  :ensure t
+(defun eglot-format-buffer-on-save ()
+  "Format buffer on save."
+  (add-hook 'before-save-hook #'eglot-format-buffer -10 t))
+
+
+(use-package eglot
+  :after yasnippet
+  :init
+  (add-hook 'project-find-functions #'project-find-go-module)
+  (setq eglot-workspace-configuration
+        '((:gopls .
+                  ((staticcheck . t)
+                   (gofumpt . t)
+                   (usePlaceholders . t)
+                   (analyses .
+                              ((nilness . t)
+                               (shadow . t)
+                               (unusedparams . t)
+                               (unusedwrite . t)
+                               (useany . t)
+                               (unusedvariable . t)))))))
+  :bind
+  (("s-o r" . eglot-rename)
+   ("s-o h" . eldoc)
+   ("s-o i" . eglot-code-action-organize-imports)
+   ("s-o a" . eglot-code-actions)
+   ("s-o e" . consult-flymake))
+
   :config
-  ;; (setq flycheck-golangci-lint-enable-all t) ;; rely more on available lint file.
-  (setq flycheck-golangci-lint-fast t))
+  (setenv "GOFLAGS" "-mod=vendor")
 
-;; Company mode is a standard completion package that works well with lsp-mode.
+  :hook
+  (
+   (go-mode . yas-minor-mode)
+   (go-mode . eglot-ensure)
+   (go-mode . eglot-format-buffer-on-save)
+   (yaml-mode . eglot-ensure)
+   (terraform-mode . eglot-ensure)
+   (rust-mode . eglot-ensure)))
+
 (use-package company
   :ensure t
   :config
-  ;; Optionally enable completion-as-you-type behavior.
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1)
   (setq company-global-modes '(not org-mode not sh-mode not eshell-mode not debugger-mode not latex-mode))
