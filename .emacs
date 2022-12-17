@@ -315,31 +315,13 @@
 
 (use-package rust-mode
   :ensure t
-  :defer t
-  :hook (rust-mode . lsp))
+  :defer t)
 
 ;; Add keybindings for interacting with Cargo
 (use-package cargo
   :ensure t
   :defer t
   :hook (rust-mode . cargo-minor-mode))
-
-(use-package flycheck
-  :ensure t
-  :init
-  (global-flycheck-mode)
-  :config
-  (setq flycheck-check-syntax-automatically '(idle-change))
-  (setq flycheck-idle-change-delay 5)
-  )
-
-(use-package flycheck-rust
-  :ensure t
-  :config
-  (with-eval-after-load 'rust-mode
-    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
-  (add-hook 'before-save-hook (lambda () (when (eq 'rust-mode major-mode)
-                                           (lsp-format-buffer)))))
 
 ;; nicked from https://stackoverflow.com/questions/915985/
 ;; Align with spaces only
