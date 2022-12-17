@@ -308,12 +308,6 @@
   (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
   (add-to-list 'auto-mode-alist '("\\.puml\\'"     . plantuml-mode)))
 
-(use-package ccls
-  :ensure t
-  :defer t
-  :hook ((c-mode c++-mode objc-mode cuda-mode) .
-         (lambda () (require 'ccls) (lsp))))
-
 ;; rust
 (use-package toml-mode
   :ensure t
