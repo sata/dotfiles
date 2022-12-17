@@ -234,7 +234,8 @@
   :config
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1)
-  (setq company-global-modes '(not org-mode not sh-mode not eshell-mode not debugger-mode not latex-mode))
+  (setq company-global-modes
+        '(not org-mode not sh-mode not eshell-mode not debugger-mode not latex-mode))
   :init
   (global-company-mode t))
 
