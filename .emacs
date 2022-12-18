@@ -90,6 +90,33 @@
    ("s-o f" . consult-lsp-file-symbols))
   :init)
 
+(use-package embark
+  :ensure t
+
+  :bind
+  (("C-." . embark-act)
+   ("C-;" . embark-dwim)
+   ("C-h B" . embark-bindings))
+
+  :init
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+  ;; Drop embark--confirm from kill-buffeammoc rnd
+  (setq embark-pre-action-hooks
+        (assoc-delete-all 'kill-buffer embark-pre-action-hooks))
+
+  :config
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
+(use-package embark-consult
+  :ensure t
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
+
 (use-package orderless
   :ensure t
   :after vertico
@@ -295,8 +322,8 @@ Provides a way for modes to hook their checkers in."
          ("C-c d t" . org-roam-dailies-goto-today)
          ("C-c d y" . org-roam-dailies-goto-yesterday)
          ("C-C d p" . org-roam-dailies-goto-previous-note)
-         ("C-C d n" . org-roam-dailies-goto-next-note)
-         )
+         ("C-C d n" . org-roam-dailies-goto-next-note))
+
   :config
   (org-roam-setup))
 
