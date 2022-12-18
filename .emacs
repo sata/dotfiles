@@ -93,10 +93,11 @@
   ;; Optionally replace the key help with a completing-read interface
   (setq prefix-help-command #'embark-prefix-help-command)
   ;; Drop embark--confirm from kill-buffeammoc rnd
+
+  :config
   (setq embark-pre-action-hooks
         (assoc-delete-all 'kill-buffer embark-pre-action-hooks))
 
-  :config
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
