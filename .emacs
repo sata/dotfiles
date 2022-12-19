@@ -81,15 +81,6 @@
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref))
 
-;; init so we bind before lsp-mode binds
-(use-package consult-lsp
-  :ensure t
-  :bind
-  (("s-o d" . consult-lsp-diagnostics)
-   ("s-o s" . consult-lsp-symbols)
-   ("s-o f" . consult-lsp-file-symbols))
-  :init)
-
 (use-package embark
   :ensure t
 
@@ -102,10 +93,11 @@
   ;; Optionally replace the key help with a completing-read interface
   (setq prefix-help-command #'embark-prefix-help-command)
   ;; Drop embark--confirm from kill-buffeammoc rnd
+
+  :config
   (setq embark-pre-action-hooks
         (assoc-delete-all 'kill-buffer embark-pre-action-hooks))
 
-  :config
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
@@ -185,108 +177,66 @@
 
 (use-package go-mode
   :defer t
-  :ensure t
-  :hook (go-mode . (lambda()
-                     (flycheck-golangci-lint-setup)
-                     (setq flycheck-local-checkers '((lsp . ((next-checkers . (golangci-lint)))))))))
-
-(use-package dap-mode
-  :ensure t
-  :defer t
-  :config
-  (setq dap-auto-configure-features '()) ;; prefer hydra
-  (add-hook 'dap-stopped-hook
-            (lambda (arg) (call-interactively #'dap-hydra)))
-  (add-to-list 'display-buffer-alist
-               '("^\\*Test function.*server log\\*.*" display-buffer-no-window)))
-
-(use-package dap-dlv-go
-  :after dap-mode)
+  :ensure t)
 
 ;; required for code completion
 (use-package yasnippet
-  :defer t
-  :ensure t
-  :hook ((lsp-mode . yas-minor-mode)))
+  :ensure t)
 
-;; hack because lsp-mode is not handling the lsp-keymap-prefix nicely
-;; https://github.com/emacs-lsp/lsp-mode/issues/1672
-(setq lsp-keymap-prefix "s-o")
-;; (define-key lsp-mode-map (kbd lsp-keymap-prefix) lsp-command-map)
+(defun project-find-go-module (dir)
+  (when-let ((root (locate-dominating-file dir "go.mod")))
+    (cons 'go-module root)))
 
-(defun lsp-go-install-save-hooks ()
-  "Save hooks for go mode."
-  (add-hook 'before-save-hook #'lsp-format-buffer t t)
-  (add-hook 'before-save-hook #'lsp-organize-imports t t))
+(cl-defmethod project-root ((project (head go-module)))
+  (cdr project))
 
-(use-package lsp-mode
-  :ensure t
-  :defer t
-  :commands lsp lsp-deferred
+(defun eglot-format-buffer-on-save ()
+  "Format buffer on save."
+  (add-hook 'before-save-hook #'eglot-format-buffer -10 t))
+
+
+(use-package eglot
+  :after yasnippet
+  :init
+  (add-hook 'project-find-functions #'project-find-go-module)
+  (setq eglot-workspace-configuration
+        '((:gopls .
+                  ((staticcheck . t)
+                   (gofumpt . t)
+                   (usePlaceholders . t)
+                   (analyses .
+                              ((nilness . t)
+                               (shadow . t)
+                               (unusedparams . t)
+                               (unusedwrite . t)
+                               (useany . t)
+                               (unusedvariable . t)))))))
+  :bind
+  (("s-o r" . eglot-rename)
+   ("s-o h" . eldoc)
+   ("s-o i" . eglot-code-action-organize-imports)
+   ("s-o a" . eglot-code-actions)
+   ("s-o e" . consult-flymake))
+
   :config
-  (setq lsp-keymap-prefix "s-o")
-  (setq lsp-go-use-gofumpt t)
-  (setq lsp-go-env '((GOFLAGS . "-mod=vendor")))
-  (setq lsp-file-watch-threshold 10000)
-  (setq lsp-enable-file-watchers nil)
-  (setq lsp-go-analyses
-        '((nilness        . t)
-          (shadow         . t)
-          (unusedparams   . t)
-          (unusedwrite    . t)
-          (useany         . t)
-          (unusedvariable . t)))
-  (setq debug-on-error nil)
-  (setq lsp-terraform-server `(,"terraform-ls" "serve"))
-  (add-hook 'before-save-hook #'lsp-format-buffer t t)
-  (add-hook 'before-save-hook #'lsp-organize-imports t t)
-  :hook (
-         (go-mode        . lsp-deferred)
-         (go-mode        . lsp-go-install-save-hooks)
-         (yaml-mode      . lsp-deferred)
-         (terraform-mode . lsp-deferred)
-         (lsp-mode       . lsp-enable-which-key-integration)))
+  (setenv "GOFLAGS" "-mod=vendor")
 
-;; https://github.com/weijiangan/flycheck-golangci-lint/issues/8
-(defvar-local flycheck-local-checkers nil)
+  :hook
+  (
+   (go-mode . yas-minor-mode)
+   (go-mode . eglot-ensure)
+   (go-mode . eglot-format-buffer-on-save)
+   (yaml-mode . eglot-ensure)
+   (terraform-mode . eglot-ensure)
+   (rust-mode . eglot-ensure)))
 
-(defun +flycheck-checker-get(fn checker property)
-  "Get CHECKER from buffer-local var before asking FN.
-Provides a way for modes to hook their checkers in."
-  (or (alist-get property (alist-get checker flycheck-local-checkers))
-      (funcall fn checker property)))
-
-(advice-add 'flycheck-checker-get :around '+flycheck-checker-get)
-
-(use-package flycheck-golangci-lint
-  :defer t
-  :ensure t
-  :config
-  ;; (setq flycheck-golangci-lint-enable-all t) ;; rely more on available lint file.
-  (setq flycheck-golangci-lint-fast t))
-
-;; Optional - provides fancier overlays.
-(use-package lsp-treemacs
-  :ensure t
-  :defer t
-  :config
-  (lsp-treemacs-sync-mode 1))
-
-(use-package lsp-ui
-  :ensure t
-  :defer t
-  :config
-  :commands lsp-ui-mode)
-
-;; Company mode is a standard completion package that works well with lsp-mode.
 (use-package company
   :ensure t
   :config
-  ;; Optionally enable completion-as-you-type behavior.
-  (setq lsp-completion-provider :capf)
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1)
-  (setq company-global-modes '(not org-mode not sh-mode not eshell-mode not debugger-mode not latex-mode))
+  (setq company-global-modes
+        '(not org-mode not sh-mode not eshell-mode not debugger-mode not latex-mode))
   :init
   (global-company-mode t))
 
@@ -360,12 +310,6 @@ Provides a way for modes to hook their checkers in."
   (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
   (add-to-list 'auto-mode-alist '("\\.puml\\'"     . plantuml-mode)))
 
-(use-package ccls
-  :ensure t
-  :defer t
-  :hook ((c-mode c++-mode objc-mode cuda-mode) .
-         (lambda () (require 'ccls) (lsp))))
-
 ;; rust
 (use-package toml-mode
   :ensure t
@@ -373,31 +317,13 @@ Provides a way for modes to hook their checkers in."
 
 (use-package rust-mode
   :ensure t
-  :defer t
-  :hook (rust-mode . lsp))
+  :defer t)
 
 ;; Add keybindings for interacting with Cargo
 (use-package cargo
   :ensure t
   :defer t
   :hook (rust-mode . cargo-minor-mode))
-
-(use-package flycheck
-  :ensure t
-  :init
-  (global-flycheck-mode)
-  :config
-  (setq flycheck-check-syntax-automatically '(idle-change))
-  (setq flycheck-idle-change-delay 5)
-  )
-
-(use-package flycheck-rust
-  :ensure t
-  :config
-  (with-eval-after-load 'rust-mode
-    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
-  (add-hook 'before-save-hook (lambda () (when (eq 'rust-mode major-mode)
-                                           (lsp-format-buffer)))))
 
 ;; nicked from https://stackoverflow.com/questions/915985/
 ;; Align with spaces only
