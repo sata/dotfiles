@@ -230,6 +230,9 @@
    (terraform-mode . eglot-ensure)
    (rust-mode . eglot-ensure)))
 
+(use-package consult-eglot
+  :ensure t)
+
 (use-package company
   :ensure t
   :config

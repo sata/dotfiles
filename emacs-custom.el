@@ -29,7 +29,7 @@
  '(org-log-done 'time)
  '(org-odd-levels-only nil)
  '(package-selected-packages
-   '(yasnippet consult-projectile consult orderless marginalia vertico savehist tex-mode git-link go-dlv anzu makefile-mode makefile k8s-mode deadgrep websocket simple-httpd which-key yaml plantuml markdown latex org-roam-ui dap-go cyberpunk deadpgrep smex cargo cc-mode cl-lib company company-go cyberpunk-theme eglot elixir-mode exunit flycheck-plantuml go-mode go-projectile go-tag gotest highlight-symbol lua-mode magit markdown-mode nix-mode nyan-mode org-roam package+ plantuml-mode projectile python-mode ruby-mode rust-mode ssh terraform-mode toml-mode use-package vterm web-mode yaml-mode))
+   '(consult-eglot yasnippet consult-projectile consult orderless marginalia vertico savehist tex-mode git-link go-dlv anzu makefile-mode makefile k8s-mode deadgrep websocket simple-httpd which-key yaml plantuml markdown latex org-roam-ui dap-go cyberpunk deadpgrep smex cargo cc-mode cl-lib company company-go cyberpunk-theme eglot elixir-mode exunit flycheck-plantuml go-mode go-projectile go-tag gotest highlight-symbol lua-mode magit markdown-mode nix-mode nyan-mode org-roam package+ plantuml-mode projectile python-mode ruby-mode rust-mode ssh terraform-mode toml-mode use-package vterm web-mode yaml-mode))
  '(ring-bell-function 'ignore)
  '(show-paren-delay 0)
  '(show-paren-mode t)
