@@ -47,6 +47,12 @@ lsh() {
     ls -ltc --color=always "$dir" | head -n 20
 }
 
+clipclr() {
+    pkill -KILL greenclip
+    greenclip clear
+    greenclip daemon > /dev/null &
+}
+
 . $HOME/.asdf/asdf.sh
 
 export GOPATH="$HOME/go"
