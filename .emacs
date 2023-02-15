@@ -216,6 +216,7 @@
    ("s-o h" . eldoc)
    ("s-o i" . eglot-code-action-organize-imports)
    ("s-o a" . eglot-code-actions)
+   ("s-o ." . eglot-find-implementation)
    ("s-o e" . consult-flymake))
 
   :config
