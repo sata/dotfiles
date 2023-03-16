@@ -1,7 +1,7 @@
 [user]
 	name = "Sam Tavakoli"
 	email = "gitspam@tavakoli.se"
-	signingkey = 5A334DFEF31F82EDED064051855BC880AE746FC0
+	signingkey = 1BB67B11F48C6040D2E6BCBA5B2868EB7BBA78C9
 [core]
 	editor = emacsclient -nw
 	autocrlf = input
@@ -55,3 +55,5 @@
 
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+[commit]
+	gpgSign = true
