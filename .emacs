@@ -221,6 +221,7 @@
 
   :config
   (setenv "GOFLAGS" "-mod=vendor")
+  (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd-12"))
 
   :hook
   (
