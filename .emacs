@@ -228,6 +228,8 @@
    (go-mode . yas-minor-mode)
    (go-mode . eglot-ensure)
    (go-mode . eglot-format-buffer-on-save)
+   (c-mode . eglot-ensure)
+   (c++-mode . eglot-ensure)
    (yaml-mode . eglot-ensure)
    (terraform-mode . eglot-ensure)
    (rust-mode . eglot-ensure)))
@@ -241,7 +243,7 @@
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1)
   (setq company-global-modes
-        '(not org-mode not sh-mode not eshell-mode not debugger-mode not latex-mode))
+        '(not org-mode not sh-mode not eshell-mode not latex-mode not gud-mode))
   :init
   (global-company-mode t))
 
