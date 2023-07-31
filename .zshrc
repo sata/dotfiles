@@ -4,16 +4,12 @@ ZSH_THEME="robbyrussell"
 CASE_SENSITIVE="true"
 plugins=(git ssh-agent zsh-autosuggestions)
 
-export PATH="$PATH:$HOME/.rvm/bin"
+source $ZSH/oh-my-zsh.sh
+
 export PATH="$PATH:/usr/local/bin:$HOME/.local/bin"
 export PATH="$PATH:/usr/local/go/bin:$HOME/go/bin"
 export PATH="$PATH:$HOME/sources/elixir-ls/release/"
 export PATH="$PATH:$HOME/.cargo/bin"
-
-source $ZSH/oh-my-zsh.sh
-
-zstyle :omz:plugins:ssh-agent agent-forwarding on
-zstyle :omz:plugins:ssh-agent identities id_rsa fatcat.id_rsa fatcat.initramsfs.id_rsa mbt.id_rsa peupeu.id_rsa rpi.id_rsa wintermute.id_rsa
 
 setopt NO_HUP
 
