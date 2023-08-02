@@ -144,6 +144,10 @@
   :ensure t
   :defer t)
 
+(use-package forge
+  :ensure t
+  :after magit)
+
 (use-package yaml
   :ensure t
   :defer t)

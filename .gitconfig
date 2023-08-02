@@ -57,3 +57,5 @@
 	insteadOf = https://github.com/
 [commit]
 	gpgSign = true
+[github]
+	user = sata
