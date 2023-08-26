@@ -24,6 +24,10 @@
 
 (load custom-file)
 
+(add-to-list 'display-buffer-alist
+             '("\\*Shell Command Output\\*.*"
+               (cons #'display-buffer-no-window nil)))
+
 (add-to-list 'auto-mode-alist '("\\.common\\'" . makefile-mode))
 
 (global-set-key "\C-w" 'clipboard-kill-region)
