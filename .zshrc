@@ -6,6 +6,8 @@ plugins=(git ssh-agent zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
+unalias gau
+
 export PATH="$PATH:/usr/local/bin:$HOME/.local/bin"
 export PATH="$PATH:/usr/local/go/bin:$HOME/go/bin"
 export PATH="$PATH:$HOME/sources/elixir-ls/release/"

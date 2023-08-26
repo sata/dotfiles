@@ -55,6 +55,7 @@
 (use-package gruvbox-theme
   :ensure t
   :config
+  ;; (load-theme 'gruvbox-light-medium t))
   (load-theme 'gruvbox-dark-hard t))
 
 (use-package vertico
@@ -236,7 +237,8 @@
    (c++-mode . eglot-ensure)
    (yaml-mode . eglot-ensure)
    (terraform-mode . eglot-ensure)
-   (rust-mode . eglot-ensure)))
+   (rust-mode . eglot-ensure)
+   (python-mode . eglot-ensure)))
 
 (use-package consult-eglot
   :ensure t)
