@@ -204,6 +204,21 @@
   (add-hook 'before-save-hook #'eglot-format-buffer -10 t))
 
 
+(use-package breadcrumb
+  :load-path "~/.emacs.d/lisp"
+
+  :config
+  (setq which-func-functions #'(breadcrumb-imenu-crumbs))
+
+  :hook
+  ((go-mode . breadcrumb-mode)
+   (c-mode . breadcrumb-mode)
+   (c++-mode . breadcrumb-mode)
+   (yaml-mode . breadcrumb-mode)
+   (terraform-mode . breadcrumb-mode)
+   (rust-mode . breadcrumb-mode)
+   (python-mode . breadcrumb-mode)))
+
 (use-package eglot
   :after yasnippet
   :init
