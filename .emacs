@@ -138,7 +138,9 @@
 
 (use-package magit
   :ensure t
-  :defer t)
+  :defer t
+  :bind
+  ("C-x m" . magit))
 
 (use-package forge
   :ensure t
@@ -171,7 +173,7 @@
   :ensure t
   :defer t
   :config
-  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (define-key projectile-mode-map (kbd "M-p") 'projectile-command-map)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-global-mode))
 
