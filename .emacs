@@ -222,6 +222,9 @@
   ("s-o t" . go-test-current-test)
   ("s-o f" . go-test-current-file))
 
+(use-package erlang
+  :ensure t)
+
 (use-package eglot
   :after yasnippet
   :init

@@ -1,5 +1,5 @@
 DOTFILES := $(shell find $(SOURCEDIR) -type f -name '.*')
-ERLANG_VERSION = 24.1.2
+ERLANG_VERSION = 26.2.3
 ELIXIR_VERSION = v1.10.2
 PHOENIX_VERSION = 1.4.14
 ADR_TOOLS_VERSION = 3.0.0
@@ -98,9 +98,26 @@ flux:
 .PHONY: elixir-ls
 elixir-ls:
 	@ if [ ! -d ~/sources/elixir-ls ]; then \
-		cd ~/sources/ && git clone https://github.com/elixir-lsp/elixir-ls.git &&	\
+		cd ~/sources/ && git clone --depth 1 https://github.com/elixir-lsp/elixir-ls.git &&	\
 		cd elixir-ls && \
 		mix do local.hex --force, local.rebar --force, deps.get, elixir_ls.release; \
+	fi
+
+.PHONY: rebar3
+rebar3:
+	@ if [ ! -d ~/sources/rebar3 ]; then \
+		cd ~/sources && git clone --depth 1 https://github.com/erlang/rebar3.git && \
+		cd rebar3 && \
+		./bootstrap && \
+		./rebar3 local install; \
+	fi
+
+.PHONY: erlang-ls
+erlang-ls:
+	@ if [ ! -d ~/sources/erlang-ls ]; then \
+		cd ~/sources/ && git clone --depth 1 https://github.com/erlang-ls/erlang_ls.git &&	\
+		cd erlang_ls && \
+		PREFIX=~/ make install; \
 	fi
 
 .PHONY: rust

@@ -12,6 +12,7 @@ export PATH="$PATH:/usr/local/bin:$HOME/.local/bin"
 export PATH="$PATH:/usr/local/go/bin:$HOME/go/bin"
 export PATH="$PATH:$HOME/sources/elixir-ls/release/"
 export PATH="$PATH:$HOME/.cargo/bin"
+export PATH="$PATH:/home/s/.cache/rebar3/bin"
 
 setopt NO_HUP
 
