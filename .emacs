@@ -1,15 +1,4 @@
-(require 'package)
-
-(add-to-list 'package-archives '("elpa"  . "http://elpa.gnu.org/packages/"))
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(add-to-list 'package-archives '("org"   . "https://orgmode.org/elpa/"))
-
-;; only do this for bootstrapping a new environment
-(unless (file-exists-p "~/.emacs.d/elpa")
-  (package-refresh-contents))
-
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
+(straight-use-package 'use-package)
 
 ;; ;; use for debugging slow startup
 ;; (use-package benchmark-init
@@ -218,6 +207,16 @@
    (terraform-mode . breadcrumb-mode)
    (rust-mode . breadcrumb-mode)
    (python-mode . breadcrumb-mode)))
+
+(use-package gotest
+  :straight (gotest :type git :host github :repo "nlamirault/gotest.el"
+                    :fork (:host github :repo "sata-form3/gotest.el"))
+  :config
+  (setq go-test-verbose t)
+  (setq go-test-failfast t)
+  :bind
+  ("s-o t" . go-test-current-test)
+  ("s-o f" . go-test-current-file))
 
 (use-package eglot
   :after yasnippet

@@ -35,6 +35,7 @@
  '(show-paren-delay 0)
  '(show-paren-mode t)
  '(standard-indent 2)
+ '(straight-use-package-by-default t)
  '(tab-width 2)
  '(vc-follow-symlinks t)
  '(version-control t)
