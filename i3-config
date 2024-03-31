@@ -176,8 +176,8 @@ bindsym $mod+m bar mode toggle
 for_window [class = "Firefox"] layout tabbed
 for_window [class="Spotify"] move to workspace $ws10
 
-exec --no-startup-id i3-msg 'workspace $ws2; exec emacs; workspace $ws1'
-exec --no-startup-id i3-msg 'workspace $ws2; exec i3-sensible-terminal; workspace $ws1'
+# exec --no-startup-id i3-msg 'workspace $ws2; exec emacs; workspace $ws1'
+# exec --no-startup-id i3-msg 'workspace $ws2; exec i3-sensible-terminal; workspace $ws1'
 exec --no-startup-id greenclip daemon
 exec --no-startup-id feh --bg-scale /home/s/documents/rifka.jpg
 
