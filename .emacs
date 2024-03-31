@@ -69,7 +69,9 @@
    ("M-s l" . consult-line)
    ("M-s L" . consult-line-multi)
    ("M-s m" . consult-multi-occur)
-   ("M-s k" . consult-keep-lines))
+   ("M-s k" . consult-keep-lines)
+   ("C-x b" . consult-buffer)
+   ("M-g i" . consult-imenu))
   :hook (completion-list-mode . consult-preview-at-point-mode)
   :init
   (setq xref-show-xrefs-function #'consult-xref
