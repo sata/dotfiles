@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(apropos-do-all t)
- '(backup-by-copying t)
+ '(backup-by-copying nil)
  '(backup-directory-alist '(("." . "~/.emacs.d/saves")))
  '(c-basic-offset 2)
  '(column-number-mode t)

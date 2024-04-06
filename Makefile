@@ -38,7 +38,7 @@ rofi:
 
 .PHONY: greenclip
 greenclip:
-	@curl -L -o ~/bin/greenclip https://github.com/erebe/greenclip/releases/download/3.3/greenclip
+	@curl -L -o ~/bin/greenclip https://github.com/erebe/greenclip/releases/download/4.3/greenclip
 	chmod u+x ~/bin/greenclip
 
 .PHONY: nobeep
@@ -55,7 +55,7 @@ link: emacs-links nix-links
 .PHONY: emacs-links
 emacs-links:
 	-@mkdir ~/.emacs.d
-	-@ln -sr early-init.el ~/.emacs.d/.early-init.el
+	-@ln -sr early-init.el ~/.emacs.d/early-init.el
 	-@ln -sr emacs-custom.el ~/.emacs.d/.emacs-custom.el
 
 .PHONY: nix-links

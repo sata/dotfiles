@@ -2,6 +2,7 @@ set $mod Mod4
 
 font pango:monospace 8
 
+exec_always --no-startup-id sleep 1; setxkbmap -option "compose:ralt,ctrl:nocaps"
 exec_always --no-startup-id sleep 1; xinput disable 'Elan Touchpad'
 exec_always --no-startup-id sleep 1; xset s on
 exec_always --no-startup-id sleep 1; xset r rate 200 25
